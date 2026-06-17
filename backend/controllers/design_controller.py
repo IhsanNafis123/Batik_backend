@@ -1,9 +1,11 @@
 from flask import request, jsonify
 
+from backend.utils.jwt_helper import verify_token
 from backend.services.flux_service import generate_flux_image
 from backend.services.philosophy_service import generate_philosophy
 from backend.services.dataset_service import get_all_motifs, get_random_reference
 from backend.services.vision_service import extract_features
+from backend.services.supabase_service_motif import (save_design)
 
 
 def get_motifs():
@@ -106,4 +108,62 @@ def generate_design():
         return jsonify({
             "success": False,
             "message": str(e)
+        }), 500
+        
+def save_generated_design():
+
+    try:
+
+        auth_header = request.headers.get("Authorization")
+
+        if not auth_header:
+            return jsonify({
+                "success": False,
+                "message": "Token tidak ditemukan"
+            }), 401
+
+        token = auth_header.split(" ")[1]
+
+        payload = verify_token(token)
+
+        user_id = payload["user_id"]
+
+        data = request.get_json()
+
+        save_design(
+
+            user_id=user_id,
+
+            mode=data["mode"],
+
+            motif_name=data["motif_name"],
+
+            prompt=data["prompt"],
+
+            image_url=data["image_url"],
+
+            philosophy=data["philosophy"],
+
+            density=data["density"]
+
+        )
+
+        return jsonify({
+
+            "success": True,
+
+            "message":
+            "Design berhasil disimpan"
+
+        })
+
+    except Exception as e:
+
+        return jsonify({
+
+            "success": False,
+
+            "message":
+            str(e)
+
         }), 500

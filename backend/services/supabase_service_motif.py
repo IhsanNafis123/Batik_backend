@@ -1,6 +1,7 @@
-from backend.config.supabase import supabase
+from backend.config.database import supabase
 
 def save_design(
+    user_id,
     mode,
     motif_name,
     prompt,
@@ -13,6 +14,7 @@ def save_design(
         supabase
         .table("designs")
         .insert({
+            "user_id": user_id,
             "mode": mode,
             "motif_name": motif_name,
             "prompt": prompt,

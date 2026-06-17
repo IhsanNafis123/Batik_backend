@@ -5,16 +5,32 @@ SECRET_KEY = "SECRET123"
 
 def generate_token(user):
     payload = {
-        "user_id": str(user["_id"]),
+        "user_id": str(user["id"]),
         "name": user["name"],
         "email": user["email"],
-        "exp": datetime.utcnow() + timedelta(hours=24)
+        "iat": datetime.utcnow(),
+        "exp": datetime.utcnow() + timedelta(hours=1)
     }
 
-    token = jwt.encode(
+    return jwt.encode(
         payload,
         SECRET_KEY,
         algorithm="HS256"
     )
 
-    return token
+
+def verify_token(token):
+    try:
+        payload = jwt.decode(
+            token,
+            SECRET_KEY,
+            algorithms=["HS256"]
+        )
+
+        return payload
+
+    except jwt.ExpiredSignatureError:
+        raise Exception("Token expired")
+
+    except jwt.InvalidTokenError:
+        raise Exception("Token invalid")

@@ -24,7 +24,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Register Blueprint
-app.register_blueprint(auth_bp)
+app.register_blueprint(auth_bp, url_prefix="/auth")
 app.register_blueprint(design_bp)
 app.register_blueprint(fitting_bp)
 app.register_blueprint(recommendation_bp)
