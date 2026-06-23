@@ -2,10 +2,15 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
+from dotenv import load_dotenv # <-- Tambahkan ini
+
+# Wajib dipanggil agar bisa membaca .env
+load_dotenv() 
 
 def send_otp_email(user_email, otp_code):
     sender_email = "batik.flyyy@gmail.com"
-    sender_password = os.getenv("EMAIL_PASSWORD")
+    # Pastikan di dalam .env nama variabelnya adalah EMAIL_PASSWORD (huruf besar semua)
+    sender_password = os.getenv("EMAIL_PASSWORD") 
 
     msg = MIMEMultipart()
     msg['From'] = "BatikFly Support <batik.flyyy@gmail.com>"

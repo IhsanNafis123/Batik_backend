@@ -1,0 +1,1001 @@
+Folder PATH listing
+Volume serial number is 00000008 2098:1DDE
+C:.
+¦   .env
+¦   .gitignore
+¦   app.py
+¦   requirements.txt
+¦   struktur.txt
+¦   strukur.txt
+¦   test_cv.py
+¦   
++---backend
+¦   +---config
+¦   ¦   ¦   database.py
+¦   ¦   ¦   
+¦   ¦   +---__pycache__
+¦   ¦           database.cpython-311.pyc
+¦   ¦           database.cpython-314.pyc
+¦   ¦           database.cpython-39.pyc
+¦   ¦           
+¦   +---controllers
+¦   ¦   ¦   auth_controller.py
+¦   ¦   ¦   design_controller.py
+¦   ¦   ¦   fitting_controller.py
+¦   ¦   ¦   
+¦   ¦   +---__pycache__
+¦   ¦           auth_controller.cpython-311.pyc
+¦   ¦           auth_controller.cpython-314.pyc
+¦   ¦           auth_controller.cpython-39.pyc
+¦   ¦           design_controller.cpython-311.pyc
+¦   ¦           design_controller.cpython-314.pyc
+¦   ¦           design_controller.cpython-39.pyc
+¦   ¦           fitting_controller.cpython-311.pyc
+¦   ¦           fitting_controller.cpython-314.pyc
+¦   ¦           fitting_controller.cpython-39.pyc
+¦   ¦           
+¦   +---dataset
+¦   ¦   +---test
+¦   ¦   ¦   +---Aceh_Pintu_Aceh
+¦   ¦   ¦   ¦       100010.jpg
+¦   ¦   ¦   ¦       100012.jpg
+¦   ¦   ¦   ¦       100015.jpg
+¦   ¦   ¦   ¦       100018.jpg
+¦   ¦   ¦   ¦       100032.jpg
+¦   ¦   ¦   ¦       100038.jpg
+¦   ¦   ¦   ¦       100041.jpg
+¦   ¦   ¦   ¦       10005.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Bali_Barong
+¦   ¦   ¦   ¦       200013.jpg
+¦   ¦   ¦   ¦       200019.jpg
+¦   ¦   ¦   ¦       200022.jpg
+¦   ¦   ¦   ¦       200023.jpg
+¦   ¦   ¦   ¦       200024.jpg
+¦   ¦   ¦   ¦       200026.jpg
+¦   ¦   ¦   ¦       200029.jpg
+¦   ¦   ¦   ¦       200041.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Bali_Merak
+¦   ¦   ¦   ¦       30001.jpg
+¦   ¦   ¦   ¦       300023.jpg
+¦   ¦   ¦   ¦       30003.jpg
+¦   ¦   ¦   ¦       300031.jpg
+¦   ¦   ¦   ¦       300033.jpg
+¦   ¦   ¦   ¦       30005.jpg
+¦   ¦   ¦   ¦       30006.jpg
+¦   ¦   ¦   ¦       30008.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---DKI_Ondel_Ondel
+¦   ¦   ¦   ¦       40001.jpg
+¦   ¦   ¦   ¦       400012.jpg
+¦   ¦   ¦   ¦       400019.jpg
+¦   ¦   ¦   ¦       400022.jpg
+¦   ¦   ¦   ¦       400027.jpg
+¦   ¦   ¦   ¦       400029.jpg
+¦   ¦   ¦   ¦       400034.jpg
+¦   ¦   ¦   ¦       40006.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Jawa_Barat_Megamendung
+¦   ¦   ¦   ¦       50001.jpg
+¦   ¦   ¦   ¦       500011.jpg
+¦   ¦   ¦   ¦       500013.jpg
+¦   ¦   ¦   ¦       500017.jpg
+¦   ¦   ¦   ¦       500019.jpg
+¦   ¦   ¦   ¦       50002.jpg
+¦   ¦   ¦   ¦       500032.jpg
+¦   ¦   ¦   ¦       50005.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Jawa_Timur_Pring
+¦   ¦   ¦   ¦       600016.jpg
+¦   ¦   ¦   ¦       600017.jpg
+¦   ¦   ¦   ¦       60002.jpg
+¦   ¦   ¦   ¦       60004.jpg
+¦   ¦   ¦   ¦       600040.jpg
+¦   ¦   ¦   ¦       600041.jpg
+¦   ¦   ¦   ¦       60005.jpg
+¦   ¦   ¦   ¦       60006.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Kalimantan_Dayak
+¦   ¦   ¦   ¦       70001.jpg
+¦   ¦   ¦   ¦       700010.jpg
+¦   ¦   ¦   ¦       700017.jpg
+¦   ¦   ¦   ¦       700029.jpg
+¦   ¦   ¦   ¦       700039.jpg
+¦   ¦   ¦   ¦       70004.jpg
+¦   ¦   ¦   ¦       70006.jpg
+¦   ¦   ¦   ¦       70009.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Lampung_Gajah
+¦   ¦   ¦   ¦       80001.jpg
+¦   ¦   ¦   ¦       800024.jpg
+¦   ¦   ¦   ¦       800025.jpg
+¦   ¦   ¦   ¦       800026.jpg
+¦   ¦   ¦   ¦       800031.jpg
+¦   ¦   ¦   ¦       800032.jpg
+¦   ¦   ¦   ¦       80005.jpg
+¦   ¦   ¦   ¦       80009.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Madura_Mataketeran
+¦   ¦   ¦   ¦       900010.jpg
+¦   ¦   ¦   ¦       900017.jpg
+¦   ¦   ¦   ¦       900020.jpg
+¦   ¦   ¦   ¦       900026.jpg
+¦   ¦   ¦   ¦       900027.jpg
+¦   ¦   ¦   ¦       90003.jpg
+¦   ¦   ¦   ¦       900037.jpg
+¦   ¦   ¦   ¦       900039.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Maluku_Pala
+¦   ¦   ¦   ¦       100001.jpg
+¦   ¦   ¦   ¦       1000016.jpg
+¦   ¦   ¦   ¦       1000026.jpg
+¦   ¦   ¦   ¦       1000027.jpg
+¦   ¦   ¦   ¦       1000029.jpg
+¦   ¦   ¦   ¦       1000033.jpg
+¦   ¦   ¦   ¦       1000036.jpg
+¦   ¦   ¦   ¦       1000038.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---NTB_Lumbung
+¦   ¦   ¦   ¦       1100020.jpg
+¦   ¦   ¦   ¦       110003.jpg
+¦   ¦   ¦   ¦       1100034.jpg
+¦   ¦   ¦   ¦       1100037.jpg
+¦   ¦   ¦   ¦       110006.jpg
+¦   ¦   ¦   ¦       110007.jpg
+¦   ¦   ¦   ¦       110008.jpg
+¦   ¦   ¦   ¦       110009.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Papua_Asmat
+¦   ¦   ¦   ¦       120001.jpg
+¦   ¦   ¦   ¦       1200012.jpg
+¦   ¦   ¦   ¦       1200013.jpg
+¦   ¦   ¦   ¦       1200014.jpg
+¦   ¦   ¦   ¦       1200017.jpg
+¦   ¦   ¦   ¦       1200029.jpg
+¦   ¦   ¦   ¦       1200041.jpg
+¦   ¦   ¦   ¦       120005.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Papua_Cendrawasih
+¦   ¦   ¦   ¦       1300010.jpg
+¦   ¦   ¦   ¦       1300018.jpg
+¦   ¦   ¦   ¦       130002.jpg
+¦   ¦   ¦   ¦       1300028.jpg
+¦   ¦   ¦   ¦       1300029.jpg
+¦   ¦   ¦   ¦       1300031.jpg
+¦   ¦   ¦   ¦       1300036.jpg
+¦   ¦   ¦   ¦       130007.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Papua_Tifa
+¦   ¦   ¦   ¦       1400015.jpg
+¦   ¦   ¦   ¦       1400018.jpg
+¦   ¦   ¦   ¦       1400021.jpg
+¦   ¦   ¦   ¦       1400026.jpg
+¦   ¦   ¦   ¦       140004.jpg
+¦   ¦   ¦   ¦       1400040.jpg
+¦   ¦   ¦   ¦       140007.jpg
+¦   ¦   ¦   ¦       140009.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Solo_Parang
+¦   ¦   ¦   ¦       1500010.jpg
+¦   ¦   ¦   ¦       1500016.jpg
+¦   ¦   ¦   ¦       150002.jpg
+¦   ¦   ¦   ¦       1500023.jpg
+¦   ¦   ¦   ¦       1500028.jpg
+¦   ¦   ¦   ¦       150003.jpg
+¦   ¦   ¦   ¦       1500033.jpg
+¦   ¦   ¦   ¦       1500036.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Sulawesi_Selatan_Lontara
+¦   ¦   ¦   ¦       160001.jpg
+¦   ¦   ¦   ¦       1600010.jpg
+¦   ¦   ¦   ¦       1600012.jpg
+¦   ¦   ¦   ¦       1600018.jpg
+¦   ¦   ¦   ¦       1600023.jpg
+¦   ¦   ¦   ¦       1600028.jpg
+¦   ¦   ¦   ¦       1600030.jpg
+¦   ¦   ¦   ¦       1600036.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Sumatera_Barat_Rumah_Minang
+¦   ¦   ¦   ¦       1700017.jpg
+¦   ¦   ¦   ¦       1700018.jpg
+¦   ¦   ¦   ¦       170002.jpg
+¦   ¦   ¦   ¦       1700032.jpg
+¦   ¦   ¦   ¦       1700033.jpg
+¦   ¦   ¦   ¦       1700034.jpg
+¦   ¦   ¦   ¦       1700036.jpg
+¦   ¦   ¦   ¦       1700041.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Sumatera_Utara_Boraspati
+¦   ¦   ¦   ¦       1800012.jpg
+¦   ¦   ¦   ¦       1800024.jpg
+¦   ¦   ¦   ¦       1800025.jpg
+¦   ¦   ¦   ¦       1800034.jpg
+¦   ¦   ¦   ¦       1800038.jpg
+¦   ¦   ¦   ¦       180004.jpg
+¦   ¦   ¦   ¦       1800041.jpg
+¦   ¦   ¦   ¦       180005.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Yogyakarta_Kawung
+¦   ¦   ¦   ¦       190001.jpg
+¦   ¦   ¦   ¦       1900012.jpg
+¦   ¦   ¦   ¦       1900016.jpg
+¦   ¦   ¦   ¦       1900020.jpg
+¦   ¦   ¦   ¦       190003.jpg
+¦   ¦   ¦   ¦       1900034.jpg
+¦   ¦   ¦   ¦       190005.jpg
+¦   ¦   ¦   ¦       190009.jpg
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---Yogyakarta_Parang
+¦   ¦   ¦           2000012.jpg
+¦   ¦   ¦           2000019.jpg
+¦   ¦   ¦           2000020.jpg
+¦   ¦   ¦           2000022.jpg
+¦   ¦   ¦           2000024.jpg
+¦   ¦   ¦           2000028.jpg
+¦   ¦   ¦           2000038.jpg
+¦   ¦   ¦           200009.jpg
+¦   ¦   ¦           
+¦   ¦   +---train
+¦   ¦       +---Aceh_Pintu_Aceh
+¦   ¦       ¦       10001.jpg
+¦   ¦       ¦       100011.jpg
+¦   ¦       ¦       100013.jpg
+¦   ¦       ¦       100014.jpg
+¦   ¦       ¦       100016.jpg
+¦   ¦       ¦       100017.jpg
+¦   ¦       ¦       100019.jpg
+¦   ¦       ¦       10002.jpg
+¦   ¦       ¦       100020.jpg
+¦   ¦       ¦       100021.jpg
+¦   ¦       ¦       100022.jpg
+¦   ¦       ¦       100023.jpg
+¦   ¦       ¦       100024.jpg
+¦   ¦       ¦       100025.jpg
+¦   ¦       ¦       100026.jpg
+¦   ¦       ¦       100027.jpg
+¦   ¦       ¦       100028.jpg
+¦   ¦       ¦       100029.jpg
+¦   ¦       ¦       10003.jpg
+¦   ¦       ¦       100030.jpg
+¦   ¦       ¦       100031.jpg
+¦   ¦       ¦       100033.jpg
+¦   ¦       ¦       100034.jpg
+¦   ¦       ¦       100035.jpg
+¦   ¦       ¦       100036.jpg
+¦   ¦       ¦       100037.jpg
+¦   ¦       ¦       100039.jpg
+¦   ¦       ¦       10004.jpg
+¦   ¦       ¦       100040.jpg
+¦   ¦       ¦       10007.jpg
+¦   ¦       ¦       10008.jpg
+¦   ¦       ¦       10009.jpg
+¦   ¦       ¦       
+¦   ¦       +---Bali_Barong
+¦   ¦       ¦       20001.jpg
+¦   ¦       ¦       200010.jpg
+¦   ¦       ¦       200011.jpg
+¦   ¦       ¦       200012.jpg
+¦   ¦       ¦       200014.jpg
+¦   ¦       ¦       200015.jpg
+¦   ¦       ¦       200016.jpg
+¦   ¦       ¦       200017.jpg
+¦   ¦       ¦       200018.jpg
+¦   ¦       ¦       200020.jpg
+¦   ¦       ¦       200021.jpg
+¦   ¦       ¦       200025.jpg
+¦   ¦       ¦       200027.jpg
+¦   ¦       ¦       200028.jpg
+¦   ¦       ¦       20003.jpg
+¦   ¦       ¦       200030.jpg
+¦   ¦       ¦       200031.jpg
+¦   ¦       ¦       200032.jpg
+¦   ¦       ¦       200033.jpg
+¦   ¦       ¦       200034.jpg
+¦   ¦       ¦       200035.jpg
+¦   ¦       ¦       200036.jpg
+¦   ¦       ¦       200037.jpg
+¦   ¦       ¦       200038.jpg
+¦   ¦       ¦       200039.jpg
+¦   ¦       ¦       20004.jpg
+¦   ¦       ¦       200040.jpg
+¦   ¦       ¦       20005.jpg
+¦   ¦       ¦       20006.jpg
+¦   ¦       ¦       20007.jpg
+¦   ¦       ¦       20008.jpg
+¦   ¦       ¦       20009.jpg
+¦   ¦       ¦       
+¦   ¦       +---Bali_Merak
+¦   ¦       ¦       300010.jpg
+¦   ¦       ¦       300011.jpg
+¦   ¦       ¦       300012.jpg
+¦   ¦       ¦       300013.jpg
+¦   ¦       ¦       300014.jpg
+¦   ¦       ¦       300015.jpg
+¦   ¦       ¦       300016.jpg
+¦   ¦       ¦       300017.jpg
+¦   ¦       ¦       300018.jpg
+¦   ¦       ¦       300019.jpg
+¦   ¦       ¦       30002.jpg
+¦   ¦       ¦       300020.jpg
+¦   ¦       ¦       300021.jpg
+¦   ¦       ¦       300022.jpg
+¦   ¦       ¦       300024.jpg
+¦   ¦       ¦       300025.jpg
+¦   ¦       ¦       300026.jpg
+¦   ¦       ¦       300027.jpg
+¦   ¦       ¦       300028.jpg
+¦   ¦       ¦       300029.jpg
+¦   ¦       ¦       300030.jpg
+¦   ¦       ¦       300032.jpg
+¦   ¦       ¦       300034.jpg
+¦   ¦       ¦       300035.jpg
+¦   ¦       ¦       300036.jpg
+¦   ¦       ¦       300037.jpg
+¦   ¦       ¦       300038.jpg
+¦   ¦       ¦       300039.jpg
+¦   ¦       ¦       30004.jpg
+¦   ¦       ¦       300040.jpg
+¦   ¦       ¦       30007.jpg
+¦   ¦       ¦       30009.jpg
+¦   ¦       ¦       
+¦   ¦       +---DKI_Ondel_Ondel
+¦   ¦       ¦       400010.jpg
+¦   ¦       ¦       400011.jpg
+¦   ¦       ¦       400013.jpg
+¦   ¦       ¦       400014.jpg
+¦   ¦       ¦       400015.jpg
+¦   ¦       ¦       400016.jpg
+¦   ¦       ¦       400017.jpg
+¦   ¦       ¦       400018.jpg
+¦   ¦       ¦       40002.jpg
+¦   ¦       ¦       400020.jpg
+¦   ¦       ¦       400021.jpg
+¦   ¦       ¦       400023.jpg
+¦   ¦       ¦       400024.jpg
+¦   ¦       ¦       400025.jpg
+¦   ¦       ¦       400026.jpg
+¦   ¦       ¦       400028.jpg
+¦   ¦       ¦       40003.jpg
+¦   ¦       ¦       400030.jpg
+¦   ¦       ¦       400031.jpg
+¦   ¦       ¦       400032.jpg
+¦   ¦       ¦       400033.jpg
+¦   ¦       ¦       400035.jpg
+¦   ¦       ¦       400036.jpg
+¦   ¦       ¦       400037.jpg
+¦   ¦       ¦       400038.jpg
+¦   ¦       ¦       400039.jpg
+¦   ¦       ¦       40004.jpg
+¦   ¦       ¦       400040.jpg
+¦   ¦       ¦       40005.jpg
+¦   ¦       ¦       40007.jpg
+¦   ¦       ¦       40008.jpg
+¦   ¦       ¦       40009.jpg
+¦   ¦       ¦       
+¦   ¦       +---Jawa_Barat_Megamendung
+¦   ¦       ¦       500010.jpg
+¦   ¦       ¦       500012.jpg
+¦   ¦       ¦       500014.jpg
+¦   ¦       ¦       500015.jpg
+¦   ¦       ¦       500016.jpg
+¦   ¦       ¦       500018.jpg
+¦   ¦       ¦       500020.jpg
+¦   ¦       ¦       500021.jpg
+¦   ¦       ¦       500022.jpg
+¦   ¦       ¦       500023.jpg
+¦   ¦       ¦       500024.jpg
+¦   ¦       ¦       500025.jpg
+¦   ¦       ¦       500026.jpg
+¦   ¦       ¦       500027.jpg
+¦   ¦       ¦       500028.jpg
+¦   ¦       ¦       50003.jpg
+¦   ¦       ¦       500030.jpg
+¦   ¦       ¦       500031.jpg
+¦   ¦       ¦       500033.jpg
+¦   ¦       ¦       500034.jpg
+¦   ¦       ¦       500035.jpg
+¦   ¦       ¦       500036.jpg
+¦   ¦       ¦       500037.jpg
+¦   ¦       ¦       500038.jpg
+¦   ¦       ¦       500039.jpg
+¦   ¦       ¦       50004.jpg
+¦   ¦       ¦       500040.jpg
+¦   ¦       ¦       500041.jpg
+¦   ¦       ¦       50006.jpg
+¦   ¦       ¦       50007.jpg
+¦   ¦       ¦       50008.jpg
+¦   ¦       ¦       50009.jpg
+¦   ¦       ¦       
+¦   ¦       +---Jawa_Timur_Pring
+¦   ¦       ¦       60001.jpg
+¦   ¦       ¦       600010.jpg
+¦   ¦       ¦       600011.jpg
+¦   ¦       ¦       600012.jpg
+¦   ¦       ¦       600013.jpg
+¦   ¦       ¦       600014.jpg
+¦   ¦       ¦       600015.jpg
+¦   ¦       ¦       600018.jpg
+¦   ¦       ¦       600019.jpg
+¦   ¦       ¦       600020.jpg
+¦   ¦       ¦       600021.jpg
+¦   ¦       ¦       600022.jpg
+¦   ¦       ¦       600023.jpg
+¦   ¦       ¦       600024.jpg
+¦   ¦       ¦       600025.jpg
+¦   ¦       ¦       600026.jpg
+¦   ¦       ¦       600028.jpg
+¦   ¦       ¦       600029.jpg
+¦   ¦       ¦       60003.jpg
+¦   ¦       ¦       600030.jpg
+¦   ¦       ¦       600031.jpg
+¦   ¦       ¦       600032.jpg
+¦   ¦       ¦       600033.jpg
+¦   ¦       ¦       600034.jpg
+¦   ¦       ¦       600035.jpg
+¦   ¦       ¦       600036.jpg
+¦   ¦       ¦       600037.jpg
+¦   ¦       ¦       600038.jpg
+¦   ¦       ¦       600039.jpg
+¦   ¦       ¦       600042.jpg
+¦   ¦       ¦       60007.jpg
+¦   ¦       ¦       60009.jpg
+¦   ¦       ¦       
+¦   ¦       +---Kalimantan_Dayak
+¦   ¦       ¦       700011.jpg
+¦   ¦       ¦       700012.jpg
+¦   ¦       ¦       700013.jpg
+¦   ¦       ¦       700014.jpg
+¦   ¦       ¦       700015.jpg
+¦   ¦       ¦       700016.jpg
+¦   ¦       ¦       700018.jpg
+¦   ¦       ¦       700019.jpg
+¦   ¦       ¦       70002.jpg
+¦   ¦       ¦       700020.jpg
+¦   ¦       ¦       700021.jpg
+¦   ¦       ¦       700022.jpg
+¦   ¦       ¦       700023.jpg
+¦   ¦       ¦       700024.jpg
+¦   ¦       ¦       700025.jpg
+¦   ¦       ¦       700026.jpg
+¦   ¦       ¦       700027.jpg
+¦   ¦       ¦       700028.jpg
+¦   ¦       ¦       70003.jpg
+¦   ¦       ¦       700030.jpg
+¦   ¦       ¦       700031.jpg
+¦   ¦       ¦       700032.jpg
+¦   ¦       ¦       700034.jpg
+¦   ¦       ¦       700035.jpg
+¦   ¦       ¦       700036.jpg
+¦   ¦       ¦       700037.jpg
+¦   ¦       ¦       700038.jpg
+¦   ¦       ¦       700040.jpg
+¦   ¦       ¦       700041.jpg
+¦   ¦       ¦       70005.jpg
+¦   ¦       ¦       70007.jpg
+¦   ¦       ¦       70008.jpg
+¦   ¦       ¦       
+¦   ¦       +---Lampung_Gajah
+¦   ¦       ¦       800010.jpg
+¦   ¦       ¦       800011.jpg
+¦   ¦       ¦       800012.jpg
+¦   ¦       ¦       800013.jpg
+¦   ¦       ¦       800014.jpg
+¦   ¦       ¦       800015.jpg
+¦   ¦       ¦       800016.jpg
+¦   ¦       ¦       800017.jpg
+¦   ¦       ¦       800018.jpg
+¦   ¦       ¦       800019.jpg
+¦   ¦       ¦       80002.jpg
+¦   ¦       ¦       800021.jpg
+¦   ¦       ¦       800022.jpg
+¦   ¦       ¦       800023.jpg
+¦   ¦       ¦       800027.jpg
+¦   ¦       ¦       800028.jpg
+¦   ¦       ¦       800029.jpg
+¦   ¦       ¦       80003.jpg
+¦   ¦       ¦       800030.jpg
+¦   ¦       ¦       800033.jpg
+¦   ¦       ¦       800034.jpg
+¦   ¦       ¦       800035.jpg
+¦   ¦       ¦       800036.jpg
+¦   ¦       ¦       800037.jpg
+¦   ¦       ¦       800038.jpg
+¦   ¦       ¦       800039.jpg
+¦   ¦       ¦       80004.jpg
+¦   ¦       ¦       800040.jpg
+¦   ¦       ¦       800041.jpg
+¦   ¦       ¦       80006.jpg
+¦   ¦       ¦       80007.jpg
+¦   ¦       ¦       80008.jpg
+¦   ¦       ¦       
+¦   ¦       +---Madura_Mataketeran
+¦   ¦       ¦       90001.jpg
+¦   ¦       ¦       900011.jpg
+¦   ¦       ¦       900012.jpg
+¦   ¦       ¦       900013.jpg
+¦   ¦       ¦       900014.jpg
+¦   ¦       ¦       900015.jpg
+¦   ¦       ¦       900016.jpg
+¦   ¦       ¦       900018.jpg
+¦   ¦       ¦       900019.jpg
+¦   ¦       ¦       90002.jpg
+¦   ¦       ¦       900021.jpg
+¦   ¦       ¦       900022.jpg
+¦   ¦       ¦       900023.jpg
+¦   ¦       ¦       900024.jpg
+¦   ¦       ¦       900025.jpg
+¦   ¦       ¦       900028.jpg
+¦   ¦       ¦       900029.jpg
+¦   ¦       ¦       900030.jpg
+¦   ¦       ¦       900032.jpg
+¦   ¦       ¦       900033.jpg
+¦   ¦       ¦       900034.jpg
+¦   ¦       ¦       900035.jpg
+¦   ¦       ¦       900036.jpg
+¦   ¦       ¦       900038.jpg
+¦   ¦       ¦       90004.jpg
+¦   ¦       ¦       900040.jpg
+¦   ¦       ¦       900041.jpg
+¦   ¦       ¦       90005.jpg
+¦   ¦       ¦       90006.jpg
+¦   ¦       ¦       90007.jpg
+¦   ¦       ¦       90008.jpg
+¦   ¦       ¦       90009.jpg
+¦   ¦       ¦       
+¦   ¦       +---Maluku_Pala
+¦   ¦       ¦       1000010.jpg
+¦   ¦       ¦       1000011.jpg
+¦   ¦       ¦       1000012.jpg
+¦   ¦       ¦       1000013.jpg
+¦   ¦       ¦       1000014.jpg
+¦   ¦       ¦       1000015.jpg
+¦   ¦       ¦       1000017.jpg
+¦   ¦       ¦       1000018.jpg
+¦   ¦       ¦       1000019.jpg
+¦   ¦       ¦       100002.jpg
+¦   ¦       ¦       1000020.jpg
+¦   ¦       ¦       1000021.jpg
+¦   ¦       ¦       1000022.jpg
+¦   ¦       ¦       1000023.jpg
+¦   ¦       ¦       1000024.jpg
+¦   ¦       ¦       1000025.jpg
+¦   ¦       ¦       1000028.jpg
+¦   ¦       ¦       100003.jpg
+¦   ¦       ¦       1000030.jpg
+¦   ¦       ¦       1000031.jpg
+¦   ¦       ¦       1000032.jpg
+¦   ¦       ¦       1000035.jpg
+¦   ¦       ¦       1000037.jpg
+¦   ¦       ¦       1000039.jpg
+¦   ¦       ¦       100004.jpg
+¦   ¦       ¦       1000040.jpg
+¦   ¦       ¦       1000041.jpg
+¦   ¦       ¦       100005.jpg
+¦   ¦       ¦       100006.jpg
+¦   ¦       ¦       100007.jpg
+¦   ¦       ¦       100008.jpg
+¦   ¦       ¦       100009.jpg
+¦   ¦       ¦       
+¦   ¦       +---NTB_Lumbung
+¦   ¦       ¦       1100010.jpg
+¦   ¦       ¦       1100011.jpg
+¦   ¦       ¦       1100012.jpg
+¦   ¦       ¦       1100013.jpg
+¦   ¦       ¦       1100014.jpg
+¦   ¦       ¦       1100015.jpg
+¦   ¦       ¦       1100016.jpg
+¦   ¦       ¦       1100017.jpg
+¦   ¦       ¦       1100018.jpg
+¦   ¦       ¦       1100019.jpg
+¦   ¦       ¦       110002.jpg
+¦   ¦       ¦       1100021.jpg
+¦   ¦       ¦       1100022.jpg
+¦   ¦       ¦       1100023.jpg
+¦   ¦       ¦       1100024.jpg
+¦   ¦       ¦       1100025.jpg
+¦   ¦       ¦       1100026.jpg
+¦   ¦       ¦       1100027.jpg
+¦   ¦       ¦       1100028.jpg
+¦   ¦       ¦       1100029.jpg
+¦   ¦       ¦       1100030.jpg
+¦   ¦       ¦       1100031.jpg
+¦   ¦       ¦       1100032.jpg
+¦   ¦       ¦       1100033.jpg
+¦   ¦       ¦       1100035.jpg
+¦   ¦       ¦       1100036.jpg
+¦   ¦       ¦       1100038.jpg
+¦   ¦       ¦       1100039.jpg
+¦   ¦       ¦       110004.jpg
+¦   ¦       ¦       1100040.jpg
+¦   ¦       ¦       1100041.jpg
+¦   ¦       ¦       110005.jpg
+¦   ¦       ¦       
+¦   ¦       +---Papua_Asmat
+¦   ¦       ¦       1200010.jpg
+¦   ¦       ¦       1200011.jpg
+¦   ¦       ¦       1200015.jpg
+¦   ¦       ¦       1200016.jpg
+¦   ¦       ¦       1200018.jpg
+¦   ¦       ¦       1200019.jpg
+¦   ¦       ¦       120002.jpg
+¦   ¦       ¦       1200020.jpg
+¦   ¦       ¦       1200021.jpg
+¦   ¦       ¦       1200023.jpg
+¦   ¦       ¦       1200024.jpg
+¦   ¦       ¦       1200025.jpg
+¦   ¦       ¦       1200026.jpg
+¦   ¦       ¦       1200027.jpg
+¦   ¦       ¦       1200028.jpg
+¦   ¦       ¦       120003.jpg
+¦   ¦       ¦       1200030.jpg
+¦   ¦       ¦       1200031.jpg
+¦   ¦       ¦       1200032.jpg
+¦   ¦       ¦       1200033.jpg
+¦   ¦       ¦       1200034.jpg
+¦   ¦       ¦       1200035.jpg
+¦   ¦       ¦       1200036.jpg
+¦   ¦       ¦       1200037.jpg
+¦   ¦       ¦       1200038.jpg
+¦   ¦       ¦       1200039.jpg
+¦   ¦       ¦       120004.jpg
+¦   ¦       ¦       1200040.jpg
+¦   ¦       ¦       120006.jpg
+¦   ¦       ¦       120007.jpg
+¦   ¦       ¦       120008.jpg
+¦   ¦       ¦       120009.jpg
+¦   ¦       ¦       
+¦   ¦       +---Papua_Cendrawasih
+¦   ¦       ¦       130001.jpg
+¦   ¦       ¦       1300011.jpg
+¦   ¦       ¦       1300012.jpg
+¦   ¦       ¦       1300013.jpg
+¦   ¦       ¦       1300014.jpg
+¦   ¦       ¦       1300015.jpg
+¦   ¦       ¦       1300016.jpg
+¦   ¦       ¦       1300017.jpg
+¦   ¦       ¦       1300019.jpg
+¦   ¦       ¦       1300020.jpg
+¦   ¦       ¦       1300021.jpg
+¦   ¦       ¦       1300022.jpg
+¦   ¦       ¦       1300023.jpg
+¦   ¦       ¦       1300024.jpg
+¦   ¦       ¦       1300025.jpg
+¦   ¦       ¦       1300026.jpg
+¦   ¦       ¦       1300027.jpg
+¦   ¦       ¦       130003.jpg
+¦   ¦       ¦       1300032.jpg
+¦   ¦       ¦       1300033.jpg
+¦   ¦       ¦       1300034.jpg
+¦   ¦       ¦       1300035.jpg
+¦   ¦       ¦       1300037.jpg
+¦   ¦       ¦       1300038.jpg
+¦   ¦       ¦       1300039.jpg
+¦   ¦       ¦       130004.jpg
+¦   ¦       ¦       1300040.jpg
+¦   ¦       ¦       1300041.jpg
+¦   ¦       ¦       130005.jpg
+¦   ¦       ¦       130006.jpg
+¦   ¦       ¦       130008.jpg
+¦   ¦       ¦       130009.jpg
+¦   ¦       ¦       
+¦   ¦       +---Papua_Tifa
+¦   ¦       ¦       140001.jpg
+¦   ¦       ¦       1400010.jpg
+¦   ¦       ¦       1400011.jpg
+¦   ¦       ¦       1400012.jpg
+¦   ¦       ¦       1400013.jpg
+¦   ¦       ¦       1400014.jpg
+¦   ¦       ¦       1400016.jpg
+¦   ¦       ¦       1400017.jpg
+¦   ¦       ¦       1400019.jpg
+¦   ¦       ¦       140002.jpg
+¦   ¦       ¦       1400020.jpg
+¦   ¦       ¦       1400022.jpg
+¦   ¦       ¦       1400023.jpg
+¦   ¦       ¦       1400024.jpg
+¦   ¦       ¦       1400025.jpg
+¦   ¦       ¦       1400027.jpg
+¦   ¦       ¦       1400028.jpg
+¦   ¦       ¦       1400029.jpg
+¦   ¦       ¦       140003.jpg
+¦   ¦       ¦       1400030.jpg
+¦   ¦       ¦       1400031.jpg
+¦   ¦       ¦       1400032.jpg
+¦   ¦       ¦       1400033.jpg
+¦   ¦       ¦       1400034.jpg
+¦   ¦       ¦       1400035.jpg
+¦   ¦       ¦       1400036.jpg
+¦   ¦       ¦       1400037.jpg
+¦   ¦       ¦       1400038.jpg
+¦   ¦       ¦       1400041.jpg
+¦   ¦       ¦       140005.jpg
+¦   ¦       ¦       140006.jpg
+¦   ¦       ¦       140008.jpg
+¦   ¦       ¦       
+¦   ¦       +---Solo_Parang
+¦   ¦       ¦       150001.jpg
+¦   ¦       ¦       1500011.jpg
+¦   ¦       ¦       1500012.jpg
+¦   ¦       ¦       1500013.jpg
+¦   ¦       ¦       1500014.jpg
+¦   ¦       ¦       1500015.jpg
+¦   ¦       ¦       1500017.jpg
+¦   ¦       ¦       1500018.jpg
+¦   ¦       ¦       1500019.jpg
+¦   ¦       ¦       1500020.jpg
+¦   ¦       ¦       1500021.jpg
+¦   ¦       ¦       1500022.jpg
+¦   ¦       ¦       1500024.jpg
+¦   ¦       ¦       1500025.jpg
+¦   ¦       ¦       1500027.jpg
+¦   ¦       ¦       1500029.jpg
+¦   ¦       ¦       1500030.jpg
+¦   ¦       ¦       1500031.jpg
+¦   ¦       ¦       1500032.jpg
+¦   ¦       ¦       1500034.jpg
+¦   ¦       ¦       1500035.jpg
+¦   ¦       ¦       1500037.jpg
+¦   ¦       ¦       1500038.jpg
+¦   ¦       ¦       1500039.jpg
+¦   ¦       ¦       150004.jpg
+¦   ¦       ¦       1500040.jpg
+¦   ¦       ¦       1500041.jpg
+¦   ¦       ¦       150005.jpg
+¦   ¦       ¦       150006.jpg
+¦   ¦       ¦       150007.jpg
+¦   ¦       ¦       150008.jpg
+¦   ¦       ¦       150009.jpg
+¦   ¦       ¦       
+¦   ¦       +---Sulawesi_Selatan_Lontara
+¦   ¦       ¦       1600011.jpg
+¦   ¦       ¦       1600013.jpg
+¦   ¦       ¦       1600015.jpg
+¦   ¦       ¦       1600016.jpg
+¦   ¦       ¦       1600017.jpg
+¦   ¦       ¦       1600019.jpg
+¦   ¦       ¦       160002.jpg
+¦   ¦       ¦       1600020.jpg
+¦   ¦       ¦       1600021.jpg
+¦   ¦       ¦       1600022.jpg
+¦   ¦       ¦       1600024.jpg
+¦   ¦       ¦       1600025.jpg
+¦   ¦       ¦       1600026.jpg
+¦   ¦       ¦       1600027.jpg
+¦   ¦       ¦       1600029.jpg
+¦   ¦       ¦       160003.jpg
+¦   ¦       ¦       1600031.jpg
+¦   ¦       ¦       1600032.jpg
+¦   ¦       ¦       1600033.jpg
+¦   ¦       ¦       1600034.jpg
+¦   ¦       ¦       1600035.jpg
+¦   ¦       ¦       1600037.jpg
+¦   ¦       ¦       1600038.jpg
+¦   ¦       ¦       1600039.jpg
+¦   ¦       ¦       160004.jpg
+¦   ¦       ¦       1600040.jpg
+¦   ¦       ¦       1600041.jpg
+¦   ¦       ¦       160005.jpg
+¦   ¦       ¦       160006.jpg
+¦   ¦       ¦       160007.jpg
+¦   ¦       ¦       160008.jpg
+¦   ¦       ¦       160009.jpg
+¦   ¦       ¦       
+¦   ¦       +---Sumatera_Barat_Rumah_Minang
+¦   ¦       ¦       170001.jpg
+¦   ¦       ¦       1700010.jpg
+¦   ¦       ¦       1700011.jpg
+¦   ¦       ¦       1700012.jpg
+¦   ¦       ¦       1700013.jpg
+¦   ¦       ¦       1700014.jpg
+¦   ¦       ¦       1700015.jpg
+¦   ¦       ¦       1700016.jpg
+¦   ¦       ¦       1700019.jpg
+¦   ¦       ¦       1700020.jpg
+¦   ¦       ¦       1700021.jpg
+¦   ¦       ¦       1700022.jpg
+¦   ¦       ¦       1700023.jpg
+¦   ¦       ¦       1700024.jpg
+¦   ¦       ¦       1700025.jpg
+¦   ¦       ¦       1700027.jpg
+¦   ¦       ¦       1700028.jpg
+¦   ¦       ¦       1700029.jpg
+¦   ¦       ¦       170003.jpg
+¦   ¦       ¦       1700030.jpg
+¦   ¦       ¦       1700031.jpg
+¦   ¦       ¦       1700035.jpg
+¦   ¦       ¦       1700038.jpg
+¦   ¦       ¦       1700039.jpg
+¦   ¦       ¦       170004.jpg
+¦   ¦       ¦       1700040.jpg
+¦   ¦       ¦       1700042.jpg
+¦   ¦       ¦       170005.jpg
+¦   ¦       ¦       170006.jpg
+¦   ¦       ¦       170007.jpg
+¦   ¦       ¦       170008.jpg
+¦   ¦       ¦       170009.jpg
+¦   ¦       ¦       
+¦   ¦       +---Sumatera_Utara_Boraspati
+¦   ¦       ¦       180001.jpg
+¦   ¦       ¦       1800011.jpg
+¦   ¦       ¦       1800013.jpg
+¦   ¦       ¦       1800014.jpg
+¦   ¦       ¦       1800015.jpg
+¦   ¦       ¦       1800016.jpg
+¦   ¦       ¦       1800017.jpg
+¦   ¦       ¦       1800018.jpg
+¦   ¦       ¦       1800019.jpg
+¦   ¦       ¦       180002.jpg
+¦   ¦       ¦       1800020.jpg
+¦   ¦       ¦       1800021.jpg
+¦   ¦       ¦       1800022.jpg
+¦   ¦       ¦       1800023.jpg
+¦   ¦       ¦       1800026.jpg
+¦   ¦       ¦       1800027.jpg
+¦   ¦       ¦       1800028.jpg
+¦   ¦       ¦       1800029.jpg
+¦   ¦       ¦       180003.jpg
+¦   ¦       ¦       1800030.jpg
+¦   ¦       ¦       1800031.jpg
+¦   ¦       ¦       1800032.jpg
+¦   ¦       ¦       1800033.jpg
+¦   ¦       ¦       1800035.jpg
+¦   ¦       ¦       1800036.jpg
+¦   ¦       ¦       1800037.jpg
+¦   ¦       ¦       1800040.jpg
+¦   ¦       ¦       1800042.jpg
+¦   ¦       ¦       180006.jpg
+¦   ¦       ¦       180007.jpg
+¦   ¦       ¦       180008.jpg
+¦   ¦       ¦       180009.jpg
+¦   ¦       ¦       
+¦   ¦       +---Yogyakarta_Kawung
+¦   ¦       ¦       1900010.jpg
+¦   ¦       ¦       1900011.jpg
+¦   ¦       ¦       1900013.jpg
+¦   ¦       ¦       1900014.jpg
+¦   ¦       ¦       1900015.jpg
+¦   ¦       ¦       1900017.jpg
+¦   ¦       ¦       1900018.jpg
+¦   ¦       ¦       1900019.jpg
+¦   ¦       ¦       190002.jpg
+¦   ¦       ¦       1900021.jpg
+¦   ¦       ¦       1900022.jpg
+¦   ¦       ¦       1900023.jpg
+¦   ¦       ¦       1900024.jpg
+¦   ¦       ¦       1900025.jpg
+¦   ¦       ¦       1900026.jpg
+¦   ¦       ¦       1900027.jpg
+¦   ¦       ¦       1900028.jpg
+¦   ¦       ¦       1900029.jpg
+¦   ¦       ¦       1900030.jpg
+¦   ¦       ¦       1900031.jpg
+¦   ¦       ¦       1900032.jpg
+¦   ¦       ¦       1900035.jpg
+¦   ¦       ¦       1900036.jpg
+¦   ¦       ¦       1900037.jpg
+¦   ¦       ¦       1900038.jpg
+¦   ¦       ¦       1900039.jpg
+¦   ¦       ¦       190004.jpg
+¦   ¦       ¦       1900040.jpg
+¦   ¦       ¦       1900041.jpg
+¦   ¦       ¦       190006.jpg
+¦   ¦       ¦       190007.jpg
+¦   ¦       ¦       190008.jpg
+¦   ¦       ¦       
+¦   ¦       +---Yogyakarta_Parang
+¦   ¦               200001.jpg
+¦   ¦               2000010.jpg
+¦   ¦               2000011.jpg
+¦   ¦               2000013.jpg
+¦   ¦               2000014.jpg
+¦   ¦               2000015.jpg
+¦   ¦               2000016.jpg
+¦   ¦               2000017.jpg
+¦   ¦               2000018.jpg
+¦   ¦               200002.jpg
+¦   ¦               2000021.jpg
+¦   ¦               2000023.jpg
+¦   ¦               2000025.jpg
+¦   ¦               2000026.jpg
+¦   ¦               2000027.jpg
+¦   ¦               2000029.jpg
+¦   ¦               200003.jpg
+¦   ¦               2000030.jpg
+¦   ¦               2000031.jpg
+¦   ¦               2000032.jpg
+¦   ¦               2000033.jpg
+¦   ¦               2000034.jpg
+¦   ¦               2000035.jpg
+¦   ¦               2000036.jpg
+¦   ¦               2000037.jpg
+¦   ¦               2000039.jpg
+¦   ¦               200004.jpg
+¦   ¦               2000041.jpg
+¦   ¦               200005.jpg
+¦   ¦               200006.jpg
+¦   ¦               200007.jpg
+¦   ¦               200008.jpg
+¦   ¦               
+¦   +---middleware
+¦   ¦   ¦   auth_middleware.py
+¦   ¦   ¦   gallery_routes.py
+¦   ¦   ¦   recommendation_routes.py
+¦   ¦   ¦   
+¦   ¦   +---__pycache__
+¦   ¦           gallery_routes.cpython-311.pyc
+¦   ¦           gallery_routes.cpython-314.pyc
+¦   ¦           gallery_routes.cpython-39.pyc
+¦   ¦           recommendation_routes.cpython-311.pyc
+¦   ¦           recommendation_routes.cpython-314.pyc
+¦   ¦           recommendation_routes.cpython-39.pyc
+¦   ¦           
+¦   +---models
+¦   ¦   ¦   design_model.py
+¦   ¦   ¦   fitting_model.py
+¦   ¦   ¦   user_model.py
+¦   ¦   ¦   
+¦   ¦   +---__pycache__
+¦   ¦           design_model.cpython-314.pyc
+¦   ¦           fitting_model.cpython-311.pyc
+¦   ¦           fitting_model.cpython-314.pyc
+¦   ¦           
+¦   +---routes
+¦   ¦   ¦   auth_routes.py
+¦   ¦   ¦   design_routes.py
+¦   ¦   ¦   fitting_routes.py
+¦   ¦   ¦   
+¦   ¦   +---__pycache__
+¦   ¦           auth_routes.cpython-311.pyc
+¦   ¦           auth_routes.cpython-314.pyc
+¦   ¦           auth_routes.cpython-39.pyc
+¦   ¦           design_routes.cpython-311.pyc
+¦   ¦           design_routes.cpython-314.pyc
+¦   ¦           design_routes.cpython-39.pyc
+¦   ¦           fitting_routes.cpython-311.pyc
+¦   ¦           fitting_routes.cpython-314.pyc
+¦   ¦           fitting_routes.cpython-39.pyc
+¦   ¦           
+¦   +---services
+¦   ¦   ¦   dataset_service.py
+¦   ¦   ¦   email_service.py
+¦   ¦   ¦   flux_service.py
+¦   ¦   ¦   philosophy_service.py
+¦   ¦   ¦   supabase_service_motif.py
+¦   ¦   ¦   vision_service.py
+¦   ¦   ¦   
+¦   ¦   +---__pycache__
+¦   ¦           dataset_service.cpython-311.pyc
+¦   ¦           dataset_service.cpython-314.pyc
+¦   ¦           dataset_service.cpython-39.pyc
+¦   ¦           email_service.cpython-311.pyc
+¦   ¦           email_service.cpython-39.pyc
+¦   ¦           flux_service.cpython-311.pyc
+¦   ¦           flux_service.cpython-314.pyc
+¦   ¦           flux_service.cpython-39.pyc
+¦   ¦           philosophy_service.cpython-311.pyc
+¦   ¦           philosophy_service.cpython-314.pyc
+¦   ¦           philosophy_service.cpython-39.pyc
+¦   ¦           supabase_service_motif.cpython-311.pyc
+¦   ¦           supabase_service_motif.cpython-39.pyc
+¦   ¦           vision_service.cpython-311.pyc
+¦   ¦           vision_service.cpython-314.pyc
+¦   ¦           vision_service.cpython-39.pyc
+¦   ¦           
+¦   +---utils
+¦       ¦   jwt_helper.py
+¦       ¦   password_helper.py
+¦       ¦   
+¦       +---__pycache__
+¦               jwt_helper.cpython-311.pyc
+¦               jwt_helper.cpython-314.pyc
+¦               jwt_helper.cpython-39.pyc
+¦               password_helper.cpython-311.pyc
+¦               password_helper.cpython-314.pyc
+¦               password_helper.cpython-39.pyc
+¦               
++---templates
+        edit.html
+        index.html
+        otp.html
+        
