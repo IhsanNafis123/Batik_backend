@@ -32,15 +32,7 @@ from backend.routes.admin_routes import admin_bp
 from backend.middleware.recommendation_routes import recommendation_bp
 from backend.middleware.gallery_routes import gallery_bp
 
-# ==========================================
-# LOAD ENV
-# ==========================================
-
 load_dotenv()
-
-# ==========================================
-# APP CONFIG
-# ==========================================
 
 app = Flask(__name__)
 
