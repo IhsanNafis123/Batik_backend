@@ -13,7 +13,11 @@ from flask import (
     flash,
     session
 )
+from backend.routes.design_admin_routes import (
+    design_admin_bp
+)
 
+from backend.routes.analytics_routes import analytics_bp
 from flask_cors import CORS
 from dotenv import load_dotenv
 from supabase import create_client, Client
@@ -72,6 +76,13 @@ app.register_blueprint(
 
 app.register_blueprint(
     admin_bp
+)
+app.register_blueprint(
+    design_admin_bp
+)
+
+app.register_blueprint(
+    analytics_bp
 )
 
 # ==========================================
@@ -388,6 +399,49 @@ def api_status():
 # ==========================================
 # RUN APP
 # ==========================================
+
+@app.route("/admin/gallery/<user_id>")
+def admin_user_gallery(user_id):
+    # Pastikan admin sudah login
+    if "admin" not in session:
+        return redirect("/admin/login")
+
+    try:
+        # 1. Ambil info user
+        user_result = supabase.table("users").select("name, email").eq("user_id", user_id).execute()
+        user_info = user_result.data[0] if user_result.data else {"name": "Unknown", "email": ""}
+
+        # 2. Ambil desain milik user ini
+        designs_result = (
+            supabase
+            .table("designs")
+            .select("*")
+            .eq("user_id", user_id)
+            .order("created_at", desc=True)
+            .execute()
+        )
+
+        # 3. Ambil fitting milik user ini
+        fittings_result = (
+            supabase
+            .table("fittings")
+            .select("*")
+            .eq("user_id", user_id)
+            .order("created_at", desc=True)
+            .execute()
+        )
+
+        # Return ke template HTML (misal: admin_gallery.html)
+        return render_template(
+            "admin_gallery.html",
+            user=user_info,
+            designs=designs_result.data,
+            fittings=fittings_result.data
+        )
+
+    except Exception as e:
+        flash(f"Error fetching gallery: {str(e)}", "error")
+        return redirect("/dashboard")
 
 if __name__ == "__main__":
 

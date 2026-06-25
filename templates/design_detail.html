@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Detail Design</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+
+<style>
+
+*{
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    background:
+    radial-gradient(circle at top left,#0f172a,#020617);
+
+    min-height:100vh;
+
+    color:white;
+}
+
+.glass-card{
+
+    background:
+    rgba(15,23,42,.8);
+
+    backdrop-filter:
+    blur(20px);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    box-shadow:
+    0 0 25px rgba(37,99,235,.15);
+}
+
+.label{
+
+    color:#60a5fa;
+
+    font-weight:600;
+}
+
+.design-image{
+
+    width:100%;
+
+    border-radius:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container py-5">
+
+    <a href="javascript:history.back()"
+       class="btn btn-secondary mb-4">
+
+        ← Kembali
+
+    </a>
+
+    <div class="glass-card p-4">
+
+        <img
+            src="{{ design.image_url }}"
+            class="design-image mb-4">
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+
+                <div class="label">
+                    Motif
+                </div>
+
+                <div>
+                    {{ design.motif_name }}
+                </div>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+                <div class="label">
+                    Mode
+                </div>
+
+                <div>
+                    {{ design.mode }}
+                </div>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+                <div class="label">
+                    Density
+                </div>
+
+                <div>
+                    {{ design.density }}
+                </div>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+                <div class="label">
+                    Dibuat
+                </div>
+
+                <div>
+                    {{ design.created_at }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <h5>
+            Prompt
+        </h5>
+
+        <p>
+            {{ design.prompt }}
+        </p>
+
+        <hr>
+
+        <h5>
+            Filosofi Batik
+        </h5>
+
+        <p>
+            {{ design.philosophy }}
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
