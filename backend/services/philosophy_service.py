@@ -1,45 +1,103 @@
 import os
 import google.generativeai as genai
 
-# Konfigurasi API Key Gemini
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+# ==========================================
+# GEMINI CONFIG
+# ==========================================
 
-# Inisialisasi Model
-model = genai.GenerativeModel("gemini-2.5-flash")
+genai.configure(
+    api_key=os.getenv("GEMINI_API_KEY")
+)
 
-def generate_philosophy(motif_name, prompt):
+model = genai.GenerativeModel(
+    "gemini-2.5-flash"
+)
+
+# ==========================================
+# GENERATE PHILOSOPHY
+# ==========================================
+
+def generate_philosophy(
+    mode,
+    motif_name,
+    prompt
+):
+
     try:
-        # Prompt untuk AI
-        instruction = f"""
-        Kamu adalah ahli filosofi dan budaya batik Indonesia.
 
-        Motif Dasar:
-        {motif_name}
+        if mode == "prompt":
 
-        Desain Batik:
-        {prompt}
+            instruction = f"""
+            Kamu adalah ahli budaya batik Indonesia.
 
-        Tugas:
-        - Buat filosofi batik dalam bahasa Indonesia.
-        - Maksimal 100 kata.
-        - Jangan gunakan markdown.
-        - Jangan gunakan tanda **.
-        - Jangan gunakan tanda kutip.
-        - Jangan menggunakan bullet point.
-        - Tulis dalam satu paragraf yang rapi.
-        - Fokus pada makna budaya, estetika, dan nilai yang terkandung dalam desain.
-        """
-        
-        response = model.generate_content(instruction)
-        philosophy = response.text
+            Pengguna membuat desain batik menggunakan AI.
 
-        # Pembersihan teks dari karakter yang tidak diinginkan
+            Deskripsi desain:
+            {prompt}
+
+            Tugasmu:
+
+            Buat filosofi batik berdasarkan desain tersebut.
+
+            Aturan:
+
+            - Bahasa Indonesia.
+            - Maksimal 100 kata.
+            - Satu paragraf.
+            - Jangan menggunakan markdown.
+            - Jangan menggunakan bullet point.
+            - Jangan menggunakan tanda kutip.
+            - Fokus pada nilai budaya, estetika, kreativitas, dan makna simbolik desain.
+            """
+
+        else:
+
+            instruction = f"""
+            Kamu adalah ahli budaya batik Indonesia.
+
+            Motif dasar batik:
+
+            {motif_name}
+
+            Keinginan pengguna:
+
+            {prompt}
+
+            Tugasmu:
+
+            Buat filosofi batik yang menjelaskan perpaduan antara karakteristik motif {motif_name} dengan desain modern dari pengguna.
+
+            Aturan:
+
+            - Bahasa Indonesia.
+            - Maksimal 100 kata.
+            - Satu paragraf.
+            - Jangan menggunakan markdown.
+            - Jangan menggunakan bullet point.
+            - Jangan menggunakan tanda kutip.
+            - Jelaskan makna budaya motif batik.
+            - Jelaskan hubungan antara motif tradisional dengan inovasi desain pengguna.
+            """
+
+        response = model.generate_content(
+            instruction
+        )
+
+        philosophy = response.text.strip()
+
         philosophy = philosophy.replace("**", "")
         philosophy = philosophy.replace('"', "")
-        philosophy = philosophy.strip()
+        philosophy = philosophy.replace("\n", " ")
 
         return philosophy
 
     except Exception as e:
-        print(f"Error pada generate_philosophy: {str(e)}")
-        return "Filosofi tidak dapat digenerate karena terjadi kesalahan teknis."
+
+        print(
+            "Gemini Error:",
+            e
+        )
+
+        return (
+            "Filosofi tidak dapat dibuat karena terjadi kesalahan pada layanan AI."
+        )

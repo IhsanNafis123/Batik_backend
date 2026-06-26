@@ -29,7 +29,7 @@ def save():
 
 
 @design_bp.route(
-    "/motifs",
+    "/design/motifs",
     methods=["GET"]
 )
 def motifs():
