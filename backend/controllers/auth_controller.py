@@ -1,3 +1,4 @@
+import uuid
 from flask import request, jsonify
 from backend.config.database import supabase
 from backend.utils.password_helper import (
@@ -6,7 +7,7 @@ from backend.utils.password_helper import (
 )
 from backend.utils.jwt_helper import generate_token
 from backend.services.email_service import send_otp_email
-
+from backend.services.profile_service import get_profile as get_profile_service
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 from backend.utils.jwt_helper import verify_token
@@ -85,12 +86,13 @@ def request_otp_register():
             supabase
             .table("users")
             .insert({
+                "user_id": str(uuid.uuid4()),
                 "name": name,
                 "email": email,
                 "password": hashed_pw,
                 "otp_code": otp_code,
-                "is_verified": False,
-                "provider": "local"
+                "provider": "local",
+                "is_verified": False
             })
             .execute()
         )
@@ -235,7 +237,7 @@ def login():
         .update({
             "jwt_token": token
         })
-        .eq("id", user["id"])
+        .eq("user_id", user["user_id"])
         .execute()
     )
 
@@ -249,7 +251,7 @@ def login():
 
         "user": {
             "id":
-            user["id"],
+            user["user_id"],
 
             "name":
             user["name"],
@@ -332,25 +334,13 @@ def google_login():
                 supabase
                 .table("users")
                 .insert({
-
-                    "name":
-                    name,
-
-                    "email":
-                    email,
-
-                    "avatar":
-                    picture,
-
-                    "password":
-                    None,
-
-                    "provider":
-                    "google",
-
-                    "is_verified":
-                    True
-
+                    "user_id": str(uuid.uuid4()),
+                    "name": name,
+                    "email": email,
+                    "avatar": picture,
+                    "password": None,
+                    "provider": "google",
+                    "is_verified": True
                 })
                 .execute()
             )
@@ -367,8 +357,8 @@ def google_login():
                 token
             })
             .eq(
-                "id",
-                user["id"]
+                "user_id",
+                user["user_id"]
             )
             .execute()
         )
@@ -383,7 +373,7 @@ def google_login():
 
             "user": {
                 "id":
-                user["id"],
+                user["user_id"],
 
                 "name":
                 user["name"],
@@ -432,68 +422,38 @@ def get_profile():
     if not auth_header:
 
         return jsonify({
+
+            "success": False,
+
             "message":
             "Token tidak ditemukan"
+
         }), 401
 
     try:
 
-        token = auth_header.split(
-            " "
-        )[1]
+        token = auth_header.split(" ")[1]
 
-        payload = verify_token(
-            token
+        payload = verify_token(token)
+
+        profile = get_profile_service(
+            payload["user_id"]
         )
-
-        response = (
-            supabase
-            .table("users")
-            .select("*")
-            .eq(
-                "id",
-                payload["user_id"]
-            )
-            .execute()
-        )
-
-        if not response.data:
-
-            return jsonify({
-                "message":
-                "User tidak ditemukan"
-            }), 404
-
-        user = response.data[0]
 
         return jsonify({
 
-            "id":
-            user["id"],
+            "success": True,
 
-            "name":
-            user["name"],
-
-            "email":
-            user["email"],
-
-            "avatar":
-            user.get(
-                "avatar",
-                ""
-            ),
-
-            "provider":
-            user.get(
-                "provider",
-                ""
-            )
+            "data": profile
 
         }), 200
 
     except Exception as e:
 
         return jsonify({
-            "message":
-            str(e)
+
+            "success": False,
+
+            "message": str(e)
+
         }), 401
