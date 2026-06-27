@@ -1,126 +1,276 @@
 from flask import request, jsonify
 
 from backend.utils.jwt_helper import verify_token
-from backend.services.flux_service import generate_flux_image
-from backend.services.philosophy_service import generate_philosophy
-from backend.services.dataset_service import get_all_motifs, get_random_reference
-from backend.services.vision_service import extract_features
-from backend.services.supabase_service_motif import (save_design)
 
+from backend.services.dataset_service import (
+    get_all_motifs,
+    motif_exists
+)
+
+from backend.services.vision_service import (
+    extract_average_features
+)
+
+from backend.services.flux_service import (
+    build_flux_prompt,
+    generate_flux_image
+)
+
+from backend.services.clip_service import get_top_reference_paths
+
+from backend.services.philosophy_service import (
+    generate_philosophy
+)
+
+from backend.services.supabase_service_motif import (
+    save_design
+)
+
+
+# ===================================================
+# GET MOTIF
+# ===================================================
 
 def get_motifs():
-    motifs = get_all_motifs()
+
     return jsonify({
+
         "success": True,
-        "data": motifs
+
+        "data": get_all_motifs()
+
     })
 
 
+# ===================================================
+# GENERATE DESIGN
+# ===================================================
+
 def generate_design():
+
     try:
-        # 1. Ambil data dari request json
+
         data = request.get_json() or {}
-        mode = data.get("mode", "prompt")
-        prompt = data.get("prompt", "")
-        base_motif = data.get("base_motif", "")
 
-        # 2. Validasi input (Sekarang sudah masuk ke dalam blok try dengan benar)
-        if prompt.strip() == "":
+        mode = data.get(
+            "mode",
+            "prompt"
+        ).lower()
+
+        prompt = data.get(
+            "prompt",
+            ""
+        ).strip()
+
+        base_motif = data.get(
+            "base_motif",
+            ""
+        ).strip()
+
+        if prompt == "":
+
             return jsonify({
+
                 "success": False,
-                "message": "Prompt wajib diisi"
-            }), 400
 
-        # ==========================
+                "message":
+                "Prompt wajib diisi"
+
+            }),400
+
+
+        # ==========================================
         # PROMPT ONLY
-        # ==========================
-        if mode == "prompt":
-            final_prompt = f"""
-            Indonesian Batik Pattern
-            {prompt}
-            traditional batik
-            seamless textile
-            luxury ornament
-            highly detailed
-            premium fabric pattern
-            symmetrical composition
-            """
+        # ==========================================
 
-            philosophy = generate_philosophy("Custom Batik", prompt)
+        if mode == "prompt":
+
+            final_prompt = build_flux_prompt(
+
+                mode="prompt",
+
+                prompt=prompt
+
+            )
+
+            philosophy = generate_philosophy(
+
+                "prompt",
+
+                "",
+
+                prompt
+
+            )
+
             motif_result = ""
 
-        # ==========================
-        # HYBRID + COMPUTER VISION
-        # ==========================
+
+        # ==========================================
+        # HYBRID
+        # ==========================================
+
         else:
-            reference_image = get_random_reference(base_motif)
-            visual_signature = ""
 
-            if reference_image:
-                features = extract_features(reference_image)
-                visual_signature = str(features[:20])
+            if base_motif == "":
 
-            clean_motif_name = base_motif.replace("_", " ").strip().title()
+                return jsonify({
 
-            final_prompt = f"""
-            Indonesian Batik Pattern
-            Inspired by:
-            {clean_motif_name}
-            User Style:
-            {prompt}
-            Visual Characteristics:
-            {visual_signature}
-            preserve traditional
-            batik identity
-            seamless textile
-            highly detailed
-            premium ornament
-            luxury pattern
-            """
+                    "success": False,
 
-            philosophy = generate_philosophy(clean_motif_name, prompt)
-            motif_result = clean_motif_name
+                    "message":
+                    "Silakan pilih motif batik."
 
-        # 3. Generate Image memakai Flux
-        image_url = generate_flux_image(final_prompt)
+                }),400
 
-        # Logging ke konsol untuk kebutuhan debug
-        print("=" * 60)
-        print("MODE      :", mode)
-        print("MOTIF     :", motif_result)
-        print("PROMPT    :", prompt)
-        print("IMAGE URL :", image_url)
-        print("=" * 60)
+
+            if not motif_exists(base_motif):
+
+                return jsonify({
+
+                    "success": False,
+
+                    "message":
+                    "Motif tidak ditemukan."
+
+                }),404
+
+
+            # ======================================
+            # CLIP SEARCH
+            # ======================================
+
+            reference_images = get_top_reference_paths(
+                motif_name=base_motif,
+                prompt=prompt,
+                top_k=3
+            )
+            if len(reference_images) == 0:
+
+                return jsonify({
+
+                    "success": False,
+
+                    "message": "Referensi gambar tidak ditemukan."
+
+                }), 404
+                print("=" * 60)
+                print(reference_images)
+                print(type(reference_images))
+
+                if len(reference_images) > 0:
+                    print(type(reference_images[0]))
+                    print(reference_images[0])
+
+                print("=" * 60)
+            _ = extract_average_features(reference_images)
+
+
+            clean_name = base_motif.replace(
+                "_",
+                " "
+            ).title()
+
+
+            final_prompt = build_flux_prompt(
+
+                mode="hybrid",
+
+                prompt=prompt,
+
+                motif_name=clean_name
+
+            )
+
+
+            philosophy = generate_philosophy(
+
+                "hybrid",
+
+                clean_name,
+
+                prompt
+
+            )
+
+
+            motif_result = clean_name
+
+
+        # ==========================================
+        # FLUX GENERATION
+        # ==========================================
+
+        image_url = generate_flux_image(
+            final_prompt
+        )
+
+
+        print("="*70)
+        print("MODE :", mode)
+        print("MOTIF :", motif_result)
+        print("PROMPT :", prompt)
+        print("IMAGE :", image_url)
+        print("="*70)
+
 
         return jsonify({
+
             "success": True,
-            "data": {
+
+            "data":{
+
                 "mode": mode,
+
                 "motif": motif_result,
+
                 "image": image_url,
+
                 "philosophy": philosophy,
+
                 "density": "98%"
+
             }
+
         })
 
+
     except Exception as e:
-        print(f"Error pada generate_design: {str(e)}")
+
+        print(e)
+
         return jsonify({
+
             "success": False,
+
             "message": str(e)
-        }), 500
-        
+
+        }),500
+
+
+# ===================================================
+# SAVE DESIGN
+# ===================================================
+
 def save_generated_design():
 
     try:
 
-        auth_header = request.headers.get("Authorization")
+        auth_header = request.headers.get(
+            "Authorization"
+        )
 
         if not auth_header:
+
             return jsonify({
+
                 "success": False,
-                "message": "Token tidak ditemukan"
-            }), 401
+
+                "message":
+                "Token tidak ditemukan"
+
+            }),401
+
 
         token = auth_header.split(" ")[1]
 
@@ -129,6 +279,7 @@ def save_generated_design():
         user_id = payload["user_id"]
 
         data = request.get_json()
+
 
         save_design(
 
@@ -148,6 +299,7 @@ def save_generated_design():
 
         )
 
+
         return jsonify({
 
             "success": True,
@@ -156,6 +308,7 @@ def save_generated_design():
             "Design berhasil disimpan"
 
         })
+
 
     except Exception as e:
 
@@ -166,4 +319,4 @@ def save_generated_design():
             "message":
             str(e)
 
-        }), 500
+        }),500

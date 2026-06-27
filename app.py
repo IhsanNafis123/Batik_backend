@@ -32,7 +32,7 @@ from backend.routes.auth_routes import auth_bp
 from backend.routes.design_routes import design_bp
 from backend.routes.fitting_routes import fitting_bp
 from backend.routes.admin_routes import admin_bp
-
+from backend.services.clip_service import load_embedding_cache
 from backend.middleware.recommendation_routes import recommendation_bp
 from backend.middleware.gallery_routes import gallery_bp
 
@@ -83,6 +83,7 @@ app.register_blueprint(
 app.register_blueprint(
     analytics_bp
 )
+# ==========================================
 
 # ==========================================
 # DASHBOARD ADMIN
@@ -443,6 +444,18 @@ def admin_user_gallery(user_id):
         return redirect("/dashboard")
 
 if __name__ == "__main__":
+
+    app.debug = True
+
+    if os.environ.get("WERKZEUG_RUN_MAIN") == "true" or not app.debug:
+
+        print("=" * 60)
+        print("Loading CLIP Cache...")
+
+        load_embedding_cache()
+
+        print("CLIP Cache Ready!")
+        print("=" * 60)
 
     print(app.url_map)
 
