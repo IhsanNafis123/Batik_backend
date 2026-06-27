@@ -39,7 +39,6 @@ from backend.middleware.gallery_routes import gallery_bp
 load_dotenv()
 
 app = Flask(__name__)
-
 CORS(app)
 
 app.secret_key = "batikflyy_super_secret"
