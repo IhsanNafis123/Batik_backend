@@ -7,10 +7,7 @@ import os
 def upload_motif():
     try:
         if "image" not in request.files:
-            return jsonify({
-                "success": False,
-                "message": "File tidak ditemukan"
-            }), 400
+            return jsonify({"success": False, "message": "File tidak ditemukan"}), 400
 
         image = request.files["image"]
         folder = request.form.get("folder", "motifs")
@@ -18,29 +15,20 @@ def upload_motif():
         success, url, error = upload_image_to_supabase(image, folder=folder)
 
         if not success:
-            return jsonify({
-                "success": False,
-                "message": error
-            }), 500
+            return jsonify({"success": False, "message": error}), 500
 
-        return jsonify({
-            "success": True,
-            "motif_url": url
-        })
+        return jsonify({"success": True, "motif_url": url})
 
     except Exception as e:
-        return jsonify({
-            "success": False,
-            "message": str(e)
-        }), 500
+        return jsonify({"success": False, "message": str(e)}), 500
         
 def generate_vton():
     try:
         data = request.get_json()
         print("DEBUG: Data VTON diterima:", data)
 
+        user_id = data.get("user_id") 
         user_photo_url = data.get("user_photo_url")
-        # GANTI KEY INI SESUAI YANG DIKIRIM FLUTTER
         motif_url = data.get("batik_motif_url") 
 
         if not user_photo_url:
@@ -50,7 +38,6 @@ def generate_vton():
             return jsonify({"success": False, "message": "batik_motif_url tidak ditemukan"}), 400
 
         print("========== MEMANGGIL FAL AI ==========")
-
         result = fal_client.subscribe(
             "fal-ai/idm-vton",
             arguments={
@@ -62,139 +49,71 @@ def generate_vton():
             with_logs=True
         )
 
-        print("========== HASIL FAL ==========")
-        print(result)
-
         result_url = None
-
-        # beberapa model Fal mengembalikan "image"
         if "image" in result:
             result_url = result["image"]["url"]
-
-        # beberapa model mengembalikan "images"
         elif "images" in result:
             if len(result["images"]) > 0:
                 result_url = result["images"][0]["url"]
 
         if result_url is None:
-            return jsonify({
-                "success": False,
-                "message": "Fal AI tidak mengembalikan gambar.",
-                "result": result
-            }), 500
-
-        # ===========================
-        # SIMPAN KE DATABASE
-        # ===========================
+            return jsonify({"success": False, "message": "Fal AI gagal", "result": result}), 500
 
         try:
-
             supabase.table("fittings").insert({
-
+                "user_id": user_id,
                 "user_photo_url": user_photo_url,
-
                 "motif_url": motif_url,
-
                 "result_url": result_url,
-
                 "model": "VTON",
-
                 "size": "-",
-
                 "material": "-",
-
                 "fabric_length": 0,
-
                 "fitting_type": "VTON"
-
             }).execute()
-
         except Exception as db_error:
+            print("DATABASE ERROR:", db_error)
 
-            print("DATABASE ERROR")
-            print(db_error)
-
-        return jsonify({
-
-            "success": True,
-
-            "message": "Virtual Try-On berhasil",
-
-            "result_url": result_url
-
-        })
+        return jsonify({"success": True, "message": "Virtual Try-On berhasil", "result_url": result_url})
 
     except Exception as e:
-
-        print("========== ERROR VTON ==========")
-        print(e)
-
-        return jsonify({
-
-            "success": False,
-
-            "message": str(e)
-
-        }), 500
+        print("========== ERROR VTON ==========", e)
+        return jsonify({"success": False, "message": str(e)}), 500
 
 def simpan_fitting():
     print("DEBUG: Function simpan_fitting dipanggil!")
     try:
         data = request.json
-        user_id = data.get('user_id')   
-        print("Data yang diterima:", data)
-        
         user_id = data.get('user_id')
         motif_url = data.get('motif_url')
         size = data.get('size')
         model = data.get("model")
 
         if not motif_url or not size or not model:
-            return jsonify({"error": "Data tidak lengkap. Pastikan motif, ukuran, dan model dipilih."}), 400
+            return jsonify({"error": "Data tidak lengkap."}), 400
 
-        # Mencegah error tipe data UUID jika user belum login
-        if user_id == "anonymous":
+        if user_id == "anonymous" or not user_id:
             user_id = None
 
-        # MENYIMPAN KE DATABASE SUPABASE
         supabase.table("fittings").insert({
-
             "user_id": user_id,
-
             "motif_url": motif_url,
-
             "model": model,
-
             "size": size,
-
             "material": "Katun Primissima",
-
             "fabric_length": 2.0,
-
             "fitting_type": "3D"
-
         }).execute()
-
                 
-        # KENDALI BACKEND: Memberikan instruksi ke Flutter file apa yang harus dirender
         return jsonify({
-
             "success": True,
-
             "message": "Data fitting berhasil disimpan",
-
             "data_render": {
-
                 "model_url": model,
-
                 "motif_url": motif_url
-
             },
-
             "fabric": 2.0,
-
             "material": "Katun Primissima"
-
         })
 
     except Exception as e:

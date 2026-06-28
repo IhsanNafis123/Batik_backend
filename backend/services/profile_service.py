@@ -1,5 +1,6 @@
 from backend.config.database import supabase
 
+
 # ==========================================================
 # GET PROFILE
 # ==========================================================
@@ -7,7 +8,7 @@ from backend.config.database import supabase
 def get_profile(user_id):
 
     # ==========================================
-    # USER
+    # GET USER
     # ==========================================
 
     user_result = (
@@ -20,7 +21,7 @@ def get_profile(user_id):
     )
 
     if not user_result.data:
-        raise Exception("User tidak ditemukan.")
+        raise Exception("User tidak ditemukan")
 
     user = user_result.data
 
@@ -28,92 +29,104 @@ def get_profile(user_id):
     # TOTAL DESIGN
     # ==========================================
 
-    design_result = (
-        supabase
-        .table("designs")
-        .select(
-            "id",
-            count="exact"
-        )
-        .eq(
-            "user_id",
-            user_id
-        )
-        .execute()
-    )
+    try:
 
-    total_design = (
-        design_result.count
-        if design_result.count
-        else 0
-    )
+        design_result = (
+            supabase
+            .table("designs")
+            .select(
+                "id",
+                count="exact"
+            )
+            .eq(
+                "user_id",
+                user_id
+            )
+            .execute()
+        )
+
+        total_design = (
+            design_result.count
+            if design_result.count
+            else 0
+        )
+
+    except Exception:
+
+        total_design = 0
 
     # ==========================================
     # TOTAL FITTING
     # ==========================================
 
-    fitting_result = (
-        supabase
-        .table("fittings")
-        .select(
-            "id",
-            count="exact"
-        )
-        .eq(
-            "user_id",
-            user_id
-        )
-        .execute()
-    )
+    try:
 
-    total_fitting = (
-        fitting_result.count
-        if fitting_result.count
-        else 0
-    )
+        fitting_result = (
+            supabase
+            .table("fittings")
+            .select(
+                "id",
+                count="exact"
+            )
+            .eq(
+                "user_id",
+                user_id
+            )
+            .execute()
+        )
+
+        total_fitting = (
+            fitting_result.count
+            if fitting_result.count
+            else 0
+        )
+
+    except Exception:
+
+        total_fitting = 0
 
     # ==========================================
     # TOTAL DOWNLOAD
     # ==========================================
 
-    # Jika belum ada tabel downloads,
-    # sementara gunakan 0
+    try:
 
-    total_download = 0
+        download_result = (
+            supabase
+            .table("downloads")
+            .select(
+                "id",
+                count="exact"
+            )
+            .eq(
+                "user_id",
+                user_id
+            )
+            .execute()
+        )
 
-    # ==========================================
-    # AVATAR
-    # ==========================================
+        total_download = (
+            download_result.count
+            if download_result.count
+            else 0
+        )
 
-    avatar = (
-        user.get("avatar")
-        or user.get("photo_url")
-        or ""
-    )
+    except Exception:
 
-    # ==========================================
-    # PROVIDER
-    # ==========================================
-
-    provider = (
-        user.get("provider")
-        or "email"
-    )
-
-    # ==========================================
-    # CREATED AT
-    # ==========================================
-
-    created_at = (
-        user.get("created_at")
-        or ""
-    )
+        # Jika tabel downloads belum dibuat
+        total_download = 0
 
     # ==========================================
     # RESPONSE
     # ==========================================
 
     return {
+
+        "user_id":
+            user.get(
+                "user_id",
+                ""
+            ),
 
         "name":
             user.get(
@@ -128,13 +141,22 @@ def get_profile(user_id):
             ),
 
         "avatar":
-            avatar,
+            user.get(
+                "avatar",
+                ""
+            ),
 
         "provider":
-            provider,
+            user.get(
+                "provider",
+                "local"
+            ),
 
         "created_at":
-            created_at,
+            user.get(
+                "created_at",
+                ""
+            ),
 
         "total_design":
             total_design,

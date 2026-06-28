@@ -6,6 +6,7 @@ from backend.controllers.auth_controller import (
     login,
     google_login,
     get_profile,
+    update_profile
 )
 
 auth_bp = Blueprint(
@@ -37,3 +38,7 @@ auth_bp.route(
     "/profile",
     methods=["GET"]
 )(get_profile)
+auth_bp.route(
+    "/profile",
+    methods=["PUT"]
+)(update_profile)

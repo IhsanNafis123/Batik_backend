@@ -35,6 +35,7 @@ from backend.routes.admin_routes import admin_bp
 from backend.services.clip_service import load_embedding_cache
 from backend.middleware.recommendation_routes import recommendation_bp
 from backend.middleware.gallery_routes import gallery_bp
+from backend.routes.activity_routes import activity_bp
 
 load_dotenv()
 
@@ -55,6 +56,11 @@ supabase: Client = create_client(
 app.register_blueprint(
     auth_bp,
     url_prefix="/auth"
+)
+
+app.register_blueprint(
+    activity_bp,
+    url_prefix="/activity"
 )
 
 app.register_blueprint(
