@@ -26,6 +26,10 @@ from backend.services.supabase_service_motif import (
     save_design
 )
 
+from backend.services.activity_log_service import (
+    save_activity
+)
+
 
 # ===================================================
 # GET MOTIF
@@ -296,6 +300,15 @@ def save_generated_design():
             philosophy=data["philosophy"],
 
             density=data["density"]
+
+        )
+        save_activity(
+
+            user_id=user_id,
+
+            activity="GENERATE_DESIGN",
+
+            description=f"Membuat desain batik {data['motif_name']}"
 
         )
 

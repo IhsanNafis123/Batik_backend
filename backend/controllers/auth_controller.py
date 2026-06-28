@@ -11,6 +11,7 @@ from backend.services.profile_service import get_profile as get_profile_service
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 from backend.utils.jwt_helper import verify_token
+from backend.services.activity_log_service import save_activity
 
 import random
 
@@ -81,12 +82,12 @@ def request_otp_register():
         )
 
     else:
-
+        new_user_id = str(uuid.uuid4())
         (
             supabase
             .table("users")
             .insert({
-                "user_id": str(uuid.uuid4()),
+                "user_id": new_user_id,
                 "name": name,
                 "email": email,
                 "password": hashed_pw,
@@ -95,6 +96,15 @@ def request_otp_register():
                 "is_verified": False
             })
             .execute()
+        )
+        save_activity(
+
+            user_id=new_user_id,
+
+            activity="REGISTER",
+
+            description="Membuat akun baru"
+
         )
 
     email_sent = send_otp_email(
@@ -230,6 +240,16 @@ def login():
         }), 401
 
     token = generate_token(user)
+    
+    save_activity(
+
+        user_id=user["user_id"],
+
+        activity="LOGIN",
+
+        description="Login menggunakan Email"
+
+    )
 
     (
         supabase
@@ -348,6 +368,15 @@ def google_login():
             user = insert_result.data[0]
 
         token = generate_token(user)
+        save_activity(
+
+            user_id=user["user_id"],
+
+            activity="GOOGLE_LOGIN",
+
+            description="Login menggunakan Google"
+
+        )
 
         (
             supabase
@@ -457,3 +486,208 @@ def get_profile():
             "message": str(e)
 
         }), 401
+        
+# ==========================================
+# UPDATE PROFILE
+# ==========================================
+
+def update_profile():
+
+    auth_header = request.headers.get("Authorization")
+
+    if not auth_header:
+
+        return jsonify({
+
+            "success": False,
+            "message": "Token tidak ditemukan"
+
+        }), 401
+
+    try:
+
+        token = auth_header.split(" ")[1]
+
+        payload = verify_token(token)
+
+        response = (
+            supabase
+            .table("users")
+            .select("*")
+            .eq("user_id", payload["user_id"])
+            .execute()
+        )
+
+        if not response.data:
+
+            return jsonify({
+
+                "success": False,
+                "message": "User tidak ditemukan"
+
+            }), 404
+
+        user = response.data[0]
+
+        name = request.form.get("name")
+        email = request.form.get("email")
+        old_password = request.form.get("old_password")
+        new_password = request.form.get("new_password")
+
+        update_data = {}
+        avatar = request.files.get("avatar")
+        # ==========================
+        # USERNAME
+        # ==========================
+
+        if name:
+            update_data["name"] = name
+
+        if avatar:
+
+            from backend.services.storage_service import upload_avatar
+
+            avatar_url = upload_avatar(
+                avatar,
+                user["user_id"]
+            )
+            if not avatar_url:
+
+                return jsonify({
+
+                    "success": False,
+
+                    "message": "Upload avatar gagal"
+
+                }), 500
+
+            update_data["avatar"] = avatar_url
+            
+        # ==========================
+        # GOOGLE ACCOUNT
+        # ==========================
+
+        if user["provider"] == "google":
+
+            (
+                supabase
+                .table("users")
+                .update(update_data)
+                .eq("user_id", user["user_id"])
+                .execute()
+            )
+            save_activity(
+
+                user_id=user["user_id"],
+
+                activity="EDIT_PROFILE",
+
+                description="Mengubah informasi profil"
+
+            )
+            return jsonify({
+
+                "success": True,
+                "message": "Profile berhasil diperbarui"
+
+            }), 200
+
+        # ==========================
+        # EMAIL
+        # ==========================
+
+        if email and email != user["email"]:
+
+            email_check = (
+                supabase
+                .table("users")
+                .select("user_id")
+                .eq("email", email)
+                .execute()
+            )
+
+            if email_check.data:
+
+                return jsonify({
+
+                    "success": False,
+                    "message": "Email sudah digunakan"
+
+                }), 400
+
+            update_data["email"] = email
+
+        # ==========================
+        # PASSWORD
+        # ==========================
+
+        if new_password:
+
+            if not old_password:
+
+                return jsonify({
+
+                    "success": False,
+                    "message": "Password lama wajib diisi"
+
+                }), 400
+
+            if not check_password(
+                old_password,
+                user["password"]
+            ):
+
+                return jsonify({
+
+                    "success": False,
+                    "message": "Password lama salah"
+
+                }), 400
+
+            update_data["password"] = hash_password(
+                new_password
+            )
+
+        # ==========================
+        # UPDATE DATABASE
+        # ==========================
+        if not update_data:
+
+            return jsonify({
+
+                "success": False,
+
+                "message": "Tidak ada data yang diubah"
+
+            }), 400
+
+        (
+            supabase
+            .table("users")
+            .update(update_data)
+            .eq("user_id", user["user_id"])
+            .execute()
+        )
+        save_activity(
+            user_id=user["user_id"],
+            activity="EDIT_PROFILE",
+            description="Mengubah informasi profil"
+        )
+        
+        return jsonify({
+
+            "success": True,
+
+            "message": "Profile berhasil diperbarui"
+
+        }), 200
+
+    except Exception as e:
+
+        return jsonify({
+
+            "success": False,
+
+            "message": str(e)
+
+        }), 500
