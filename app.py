@@ -53,6 +53,7 @@ supabase: Client = create_client(
 # REGISTER BLUEPRINTS
 # ==========================================
 
+
 app.register_blueprint(
     auth_bp,
     url_prefix="/auth"

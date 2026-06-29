@@ -19,6 +19,33 @@ def analytics_dashboard():
     # 1. Pastikan Admin sudah login
     if "admin" not in session:
         return redirect("/admin/login")
+    
+     # =========================================================
+    # BAGIAN BARU: MENGHITUNG TREN MOTIF (TOP 5)
+    # =========================================================
+    trending_motifs = []
+    top_motif_name = "Belum Ada"
+
+    try:
+        # Ambil semua data motif_name dari tabel designs
+        motifs_data = supabase.table("designs").select("motif_name").execute()
+        
+        if motifs_data.data:
+            # Kumpulkan semua nama motif ke dalam satu list
+            semua_motif = [row['motif_name'] for row in motifs_data.data if row.get('motif_name')]
+            
+            # Hitung frekuensi masing-masing motif menggunakan Counter
+            motif_counter = Counter(semua_motif)
+            
+            # Ambil 5 motif paling sering muncul (Hasilnya list of tuples: [('Megamendung', 10), ('Parang', 8), ...])
+            trending_motifs = motif_counter.most_common(5)
+            
+            # Ambil juara 1 untuk ditampilkan di kotak statistik paling atas
+            if trending_motifs:
+                top_motif_name = trending_motifs[0][0]
+
+    except Exception as e:
+        print(f"Error saat menghitung tren motif: {e}")
 
     # =========================================================
     # BAGIAN 1: DATA EKSISTING (TOTAL KOTAK)
@@ -85,7 +112,8 @@ def analytics_dashboard():
         "total_users": total_users,
         "total_designs": total_designs,
         "total_fittings": total_fittings,
-        "top_motif": "Mega Mendung",
+        "top_motif": top_motif_name, # Sekarang ini dinamis, bukan hardcode lagi
+        "trending_motifs": trending_motifs, # Mengirim data Top 5 ke HTML
         "monthly_chart": {
             "labels": design_labels,
             "values": design_values 
@@ -122,6 +150,8 @@ def analytics_dashboard():
 
     labels_prev, values_prev = get_tiktok_data(prev_month, prev_year)
     labels_current, values_current = get_tiktok_data(current_month, current_year)
+
+   
 
     # =========================================================
     # BAGIAN 3: RENDER KE HTML

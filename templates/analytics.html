@@ -160,6 +160,53 @@
             </div>
         </div>
 
+        <!-- BARIS 4: TABEL TREN MOTIF BATIK -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+                        <h5 class="card-title fw-bold text-dark">📈 Top 5 Tren Motif Terpopuler</h5>
+                        <p class="text-muted small">Berdasarkan desain yang paling banyak disimpan oleh pengguna.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col" width="10%">Peringkat</th>
+                                        <th scope="col" width="70%">Nama Motif Batik</th>
+                                        <th scope="col" width="20%">Jumlah Dibuat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Looping data tren dari Python -->
+                                    {% for motif, count in analytics.trending_motifs %}
+                                    <tr>
+                                        <td>
+                                            <!-- Memberikan medali untuk top 3 -->
+                                            {% if loop.index == 1 %} 🥇 
+                                            {% elif loop.index == 2 %} 🥈 
+                                            {% elif loop.index == 3 %} 🥉 
+                                            {% else %} <span class="ms-2">#{{ loop.index }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="fw-semibold text-primary">{{ motif }}</td>
+                                        <td><span class="badge bg-success rounded-pill px-3 py-2">{{ count }} Desain</span></td>
+                                    </tr>
+                                    {% else %}
+                                    <!-- Jika belum ada data sama sekali -->
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted py-4">Belum ada data desain untuk dianalisis trennya.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
