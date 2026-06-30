@@ -1,9 +1,9 @@
 import os
 from datetime import datetime
 from collections import Counter
-from flask import render_template, session, redirect
+from flask import render_template, session, redirect, jsonify
 from supabase import create_client, Client
-
+from flask import jsonify
 # --- Setup Supabase ---
 supabase_url = os.environ.get("SUPABASE_URL")
 supabase_key = os.environ.get("SUPABASE_KEY")
@@ -14,6 +14,70 @@ def get_nama_bulan(angka_bulan, tahun):
     bulan_indo = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", 
                   "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
     return f"{bulan_indo[angka_bulan]} {tahun}"
+
+def get_mobile_analytics():
+    # =========================================================
+    # KUMPULKAN SEMUA DATA SEPERTI DI DASHBOARD WEB
+    # =========================================================
+    
+    # 1. Total Data
+    try:
+        total_users = supabase.table("users").select("*", count="exact").execute().count or 0
+        total_designs = supabase.table("designs").select("*", count="exact").execute().count or 0
+        total_fittings = supabase.table("fittings").select("*", count="exact").execute().count or 0
+    except:
+        total_users, total_designs, total_fittings = 0, 0, 0
+
+    # 2. Tren Motif (Top 5)
+    trending_motifs = []
+    top_motif_name = "Belum Ada"
+    try:
+        motifs_data = supabase.table("designs").select("motif_name").execute()
+        if motifs_data.data:
+            semua_motif = [row['motif_name'] for row in motifs_data.data if row.get('motif_name')]
+            motif_counter = Counter(semua_motif)
+            top_5 = motif_counter.most_common(5)
+            
+            # Format ulang untuk JSON Flutter (List of Dictionaries)
+            for motif, count in top_5:
+                trending_motifs.append({"name": motif, "count": count})
+            
+            if top_5:
+                top_motif_name = top_5[0][0]
+    except Exception as e:
+        pass
+
+    # 3. Data TikTok (Bulan Ini Saja Sebagai Contoh)
+    today = datetime.today()
+    labels_current, values_current = [], []
+    try:
+        res = supabase.table("analytics").select("*").eq("month", today.month).eq("year", today.year).like("metric_name", "tiktok_views_%").execute()
+        for row in res.data:
+            labels_current.append(row['metric_name'].replace('tiktok_views_', '').title())
+            values_current.append(int(row['metric_value']))
+    except:
+        pass
+
+    # =========================================================
+    # KEMBALIKAN SEBAGAI JSON
+    # =========================================================
+    return jsonify({
+        "success": True,
+        "data": {
+            "summary": {
+                "total_users": total_users,
+                "total_designs": total_designs,
+                "total_fittings": total_fittings,
+                "top_motif": top_motif_name
+            },
+            "trending_motifs": trending_motifs,
+            "tiktok_stats": {
+                "labels": labels_current,
+                "values": values_current
+            }
+        }
+    }), 200
+
 
 def analytics_dashboard():
     # 1. Pastikan Admin sudah login

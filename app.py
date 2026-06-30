@@ -36,6 +36,7 @@ from backend.services.clip_service import load_embedding_cache
 from backend.middleware.recommendation_routes import recommendation_bp
 from backend.middleware.gallery_routes import gallery_bp
 from backend.routes.activity_routes import activity_bp
+from backend.routes.gallery_routes import gallery_bp
 
 load_dotenv()
 
