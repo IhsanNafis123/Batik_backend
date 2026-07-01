@@ -39,7 +39,6 @@ from backend.routes.activity_routes import activity_bp
 from backend.routes.gallery_routes import gallery_bp
 
 load_dotenv()
-
 app = Flask(__name__)
 CORS(app)
 
@@ -96,6 +95,7 @@ app.register_blueprint(
 # ==========================================
 # DASHBOARD ADMIN
 # ==========================================
+
 
 @app.route("/dashboard")
 def dashboard():

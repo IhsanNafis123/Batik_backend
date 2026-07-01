@@ -5,14 +5,21 @@ from backend.utils.password_helper import (
     hash_password,
     check_password
 )
+from datetime import datetime, timezone
 from backend.utils.jwt_helper import generate_token
-from backend.services.email_service import send_otp_email
 from backend.services.profile_service import get_profile as get_profile_service
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 from backend.utils.jwt_helper import verify_token
 from backend.services.activity_log_service import save_activity
-
+from backend.utils.token_helper import (
+    generate_reset_token,
+    generate_reset_token_expired
+)
+from backend.services.email_service import (
+    send_otp_email,
+    send_reset_password_email
+)
 import random
 
 
@@ -691,3 +698,133 @@ def update_profile():
             "message": str(e)
 
         }), 500
+        
+def forgot_password_controller():
+
+    data = request.get_json()
+
+    email = data.get("email")
+
+    if not email:
+        return jsonify({
+            "message": "Email wajib diisi"
+        }), 400
+
+    response = (
+        supabase
+        .table("users")
+        .select("*")
+        .eq("email", email)
+        .execute()
+    )
+
+    if not response.data:
+        return jsonify({
+            "message": "Email tidak ditemukan"
+        }), 404
+
+    user = response.data[0]
+
+    # Generate token reset password
+    token = generate_reset_token()
+
+    # Waktu kedaluwarsa token (15 menit)
+    expired_at = generate_reset_token_expired()
+
+    # Simpan ke database
+    (
+        supabase
+        .table("users")
+        .update({
+            "reset_token": token,
+            "reset_token_expired_at": expired_at
+        })
+        .eq("user_id", user["user_id"])
+        .execute()
+    )
+
+    email_sent = send_reset_password_email(email, token)
+
+    if not email_sent:
+        return jsonify({
+            "message": "Gagal mengirim email reset password."
+        }), 500
+
+    return jsonify({
+        "message": "Token reset password berhasil dikirim ke email."
+    }), 200
+        # ==========================================
+# RESET PASSWORD
+# ==========================================
+
+def reset_password_controller():
+
+    data = request.get_json()
+
+    token = data.get("token")
+    new_password = data.get("password")
+
+    if not token or not new_password:
+        return jsonify({
+            "message": "Token dan password wajib diisi."
+        }), 400
+
+    if len(new_password) < 8 or len(new_password) > 12:
+        return jsonify({
+            "message": "Password harus 8-12 karakter."
+        }), 400
+
+    response = (
+        supabase
+        .table("users")
+        .select("*")
+        .eq("reset_token", token)
+        .execute()
+    )
+
+    if not response.data:
+        return jsonify({
+            "message": "Token reset password tidak valid."
+        }), 404
+
+    user = response.data[0]
+
+    expired_at = user.get("reset_token_expired_at")
+
+    if expired_at:
+
+        # Ubah "Z" menjadi offset UTC yang dikenali Python
+        expired_time = datetime.fromisoformat(
+            expired_at.replace("Z", "+00:00")
+        )
+
+        # Bandingkan dengan waktu UTC yang juga timezone-aware
+        if datetime.now(timezone.utc) > expired_time:
+
+            return jsonify({
+                "message": "Token reset password telah kedaluwarsa."
+            }), 400
+
+    hashed_password = hash_password(new_password)
+
+    (
+        supabase
+        .table("users")
+        .update({
+            "password": hashed_password,
+            "reset_token": None,
+            "reset_token_expired_at": None
+        })
+        .eq("user_id", user["user_id"])
+        .execute()
+    )
+
+    save_activity(
+        user_id=user["user_id"],
+        activity="RESET_PASSWORD",
+        description="Mengubah password melalui fitur lupa password"
+    )
+
+    return jsonify({
+        "message": "Password berhasil diperbarui."
+    }), 200
