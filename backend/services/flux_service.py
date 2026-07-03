@@ -1,6 +1,7 @@
 import os
 import fal_client
 from backend.services.storage_service import upload_base64_image
+
 # ==========================================================
 # FAL CONFIG
 # ==========================================================
@@ -28,64 +29,20 @@ def build_flux_prompt(
     # ======================================================
     # PROMPT ONLY
     # ======================================================
-
     if mode == "prompt":
+        return (
+            f"A creative and artistic reimagining of {prompt}. "
+            f"The entire shape and structure of {prompt} is completely made out of zxcv_batik fabric pattern. "
+            f"Intricate traditional Indonesian batik art forming the object. "
+            f"Elegant ornament, luxury textile texture, premium fabric quality, highly detailed."
+        )
 
-        return f"""
-You are an expert Indonesian batik designer.
-
-Create a completely original premium batik textile.
-
-User Request:
-{prompt}
-
-Requirements:
-
-- Traditional Indonesian batik
-- Elegant ornament
-- Luxury textile
-- Highly detailed
-- Seamless repeating pattern
-- Premium fabric quality
-- Symmetrical composition
-- Rich Indonesian cultural aesthetics
-- Professional textile design
-"""
-
-
-    # ======================================================
-    # HYBRID
-    # ======================================================
-
-    return f"""
-You are an expert Indonesian batik designer.
-
-Reference Motif:
-{motif_name}
-
-The generated design MUST preserve the identity
-of the {motif_name} motif.
-
-Maintain the traditional characteristics of
-{motif_name} while combining them with the
-user's creativity.
-
-User Request:
-{prompt}
-
-Design Requirements:
-
-- Preserve the original {motif_name} identity
-- Traditional Indonesian batik
-- Luxury textile
-- Elegant ornament
-- Premium fabric
-- Highly detailed
-- Seamless repeating pattern
-- Symmetrical composition
-- Harmonious color palette
-- Professional textile illustration
-"""
+    return (
+        f"A creative and artistic reimagining of {prompt}. "
+        f"The entire shape and structure of {prompt} is intricately crafted and filled with a seamless blend of zxcv_batik pattern and traditional {motif_name} motif. "
+        f"It looks like a masterpiece of Indonesian batik art perfectly molded into the shape of {prompt}. "
+        f"Elegant ornament, luxury textile texture, highly detailed."
+    )
 
 
 # ==========================================================
@@ -93,59 +50,32 @@ Design Requirements:
 # ==========================================================
 
 def generate_flux_image(prompt):
-    print("===== generate_flux_image() DIPANGGIL =====")
+    """
+    Fungsi untuk memanggil FLUX LoRA di fal.ai menggunakan model dataset sendiri
+    """
     try:
-
-        handler = fal_client.submit(
-
-            "fal-ai/flux/dev",
-
+        result = fal_client.subscribe(
+            "fal-ai/flux-lora",
             arguments={
-
                 "prompt": prompt,
-
-                "image_size": "square_hd",
-
-                "num_images": 1,
-
-                "enable_safety_checker": True,
-
-                "sync_mode": True
-
-            }
-
+                "image_size": "square_hd", # Bisa diganti "landscape_4_3" atau "portrait_4_3"
+                "loras": [
+                    {
+                        # URL safetensors dari hasil training Anda
+                        "path": "https://v3b.fal.media/files/b/0aa0acd9/4q94o1AB9BItvN6H72ChJ_pytorch_lora_weights.safetensors",
+                        "scale": 1.2 # Kekuatan motif batik (bisa dinaikkan max 1.2 jika kurang kuat)
+                    }
+                ]
+            },
         )
-
-        result = handler.get()
-
-        if "images" not in result:
-
-            raise Exception(
-                "Flux gagal menghasilkan gambar."
-            )
-
-        image_result = result["images"][0]["url"]
-
-        # Jika FAL mengembalikan Base64
-        if image_result.startswith("data:image"):
-
-            public_url = upload_base64_image(image_result)
-
-            return public_url
-
-        # Jika FAL sudah mengembalikan URL
-        return image_result
-
+        
+        # Ambil URL gambar hasil dari fal.ai
+        image_url = result['images'][0]['url']
+        return image_url
+        
     except Exception as e:
-
-        print("=" * 60)
-        print("FLUX ERROR")
-        print(e)
-        print("=" * 60)
-
-        raise Exception(
-            f"Generate Flux gagal : {e}"
-        )
+        print(f"Error dari fal.ai: {e}")
+        raise Exception("Gagal menghasilkan gambar dari server AI.")
 
 
 # ==========================================================
@@ -159,13 +89,9 @@ def preview_prompt(
 ):
 
     final_prompt = build_flux_prompt(
-
         mode=mode,
-
         prompt=prompt,
-
         motif_name=motif_name
-
     )
 
     print("=" * 80)

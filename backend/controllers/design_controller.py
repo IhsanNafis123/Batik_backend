@@ -2,15 +2,10 @@ from flask import request, jsonify
 
 from backend.utils.jwt_helper import verify_token
 from backend.services.dataset_service import get_all_motifs, motif_exists
-from backend.services.vision_service import extract_average_features
 from backend.services.flux_service import build_flux_prompt, generate_flux_image
-from backend.services.clip_service import get_top_reference_paths
 from backend.services.philosophy_service import generate_philosophy
 from backend.services.supabase_service_motif import save_design
 from backend.services.activity_log_service import save_activity
-
-# 👇 TAMBAHKAN IMPORT SERVICE STABLE DIFFUSION YANG BARU KITA BUAT
-from backend.services.sd_service import generate_sd_hybrid_image 
 
 # ===================================================
 # GET MOTIF
@@ -40,15 +35,13 @@ def generate_design():
                 "message": "Prompt wajib diisi"
             }), 400
 
-        best_image_path = None # Variabel penampung untuk gambar dataset
-
         # ==========================================
         # PROMPT ONLY MODE
         # ==========================================
         if mode == "prompt":
             final_prompt = build_flux_prompt(mode="prompt", prompt=prompt)
             philosophy = generate_philosophy("prompt", "", prompt)
-            motif_result = ""
+            motif_result = "Custom"
 
         # ==========================================
         # HYBRID MODE
@@ -66,47 +59,17 @@ def generate_design():
                     "message": "Motif tidak ditemukan."
                 }), 404
 
-            # ======================================
-            # CLIP SEARCH
-            # ======================================
-            reference_images = get_top_reference_paths(
-                motif_name=base_motif,
-                prompt=prompt,
-                top_k=3
-            )
-            
-            if len(reference_images) == 0:
-                return jsonify({
-                    "success": False,
-                    "message": "Referensi gambar tidak ditemukan."
-                }), 404
-
-            # 👇 AMBIL GAMBAR TERBAIK (RANK 1) UNTUK DIKIRIM KE AI
-            best_image_path = reference_images[0]
-
-            print("=" * 60)
-            print("CLIP Results:", reference_images)
-            print("Selected Image for AI:", best_image_path)
-            print("=" * 60)
-
-            # Ekstrak fitur vision
-            _ = extract_average_features(reference_images)
-
             clean_name = base_motif.replace("_", " ").title()
             final_prompt = build_flux_prompt(mode="hybrid", prompt=prompt, motif_name=clean_name)
             philosophy = generate_philosophy("hybrid", clean_name, prompt)
             motif_result = clean_name
 
         # ==========================================
-        # EXECUTE AI GENERATION (FLUX vs STABLE DIFFUSION)
+        # EXECUTE AI GENERATION (MENGGUNAKAN FLUX LORA EKSKLUSIF)
         # ==========================================
         
-        if mode == "prompt":
-            # Mode Text-to-Image -> Pakai FLUX
-            image_url = generate_flux_image(final_prompt)
-        else:
-            # Mode Image-to-Image -> Pakai Stable Diffusion + Gambar Lokal
-            image_url = generate_sd_hybrid_image(final_prompt, best_image_path)
+        # Baik mode prompt maupun hybrid sekarang langsung ditangani oleh otak FLUX Anda.
+        image_url = generate_flux_image(final_prompt)
 
         print("="*70)
         print("MODE   :", mode)
@@ -122,7 +85,7 @@ def generate_design():
                 "motif": motif_result,
                 "image": image_url,
                 "philosophy": philosophy,
-                "density": "98%" # Atau lu bisa bikin ini dinamis ke depannya
+                "density": "98%" 
             }
         })
 
